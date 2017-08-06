@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="inc" displayName="inc" projectFiles="true">
+      <logicalFolder name="f3" displayName="boost" projectFiles="true">
+        <itemPath>inc/boost/atomic.hpp</itemPath>
+        <itemPath>inc/boost/memory_order.hpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Caching" displayName="Caching" projectFiles="true">
+        <itemPath>inc/Caching/ARCLKCache.h</itemPath>
+        <itemPath>inc/Caching/ARCLLCache.h</itemPath>
+        <itemPath>inc/Caching/AbstractCache.h</itemPath>
+        <itemPath>inc/Caching/AbstractReplacableCache.h</itemPath>
+        <itemPath>inc/Caching/CacheBase.h</itemPath>
+        <itemPath>inc/Caching/CacheFactory.h</itemPath>
+        <itemPath>inc/Caching/DefaultCacheFactory.h</itemPath>
+        <itemPath>inc/Caching/DirtyLRUCache.h</itemPath>
+        <itemPath>inc/Caching/HFLRUCache.h</itemPath>
+        <itemPath>inc/Caching/HLKCache.h</itemPath>
+        <itemPath>inc/Caching/HLKLRUCache.h</itemPath>
+        <itemPath>inc/Caching/HLLLRUCache.h</itemPath>
+        <itemPath>inc/Caching/MemoryStats.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Distributed" displayName="Distributed" projectFiles="true">
+        <itemPath>inc/Distributed/BackendActiveChecker.h</itemPath>
+        <itemPath>inc/Distributed/BackendInfo.h</itemPath>
+        <itemPath>inc/Distributed/BackendManager.h</itemPath>
+        <itemPath>inc/Distributed/BasicBackendManagerHandler.h</itemPath>
+        <itemPath>inc/Distributed/BasicProxyFactory.h</itemPath>
+        <itemPath>inc/Distributed/CHBackendManager.h</itemPath>
+        <itemPath>inc/Distributed/RepBackendManager.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Hashing" displayName="Hashing" projectFiles="true">
+        <itemPath>inc/Hashing/CastingHasher.h</itemPath>
+        <itemPath>inc/Hashing/DefaultHasher.h</itemPath>
+        <itemPath>inc/Hashing/Hasher.h</itemPath>
+        <itemPath>inc/Hashing/MurmurHasher.h</itemPath>
+        <itemPath>inc/Hashing/OpenHasher.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="monitor" displayName="monitor" projectFiles="true">
+        <itemPath>inc/monitor/ServiceStatFetcher.h</itemPath>
+        <itemPath>inc/monitor/StatSubsystem.h</itemPath>
+        <itemPath>inc/monitor/TBackendLog.h</itemPath>
+        <itemPath>inc/monitor/TCpuUsageLog.h</itemPath>
+        <itemPath>inc/monitor/TDayStat.h</itemPath>
+        <itemPath>inc/monitor/TDiskSpeedLog.h</itemPath>
+        <itemPath>inc/monitor/TMemoryUsageLog.h</itemPath>
+        <itemPath>inc/monitor/TMonitorThriftHandler.h</itemPath>
+        <itemPath>inc/monitor/TMonitorThriftServer.h</itemPath>
+        <itemPath>inc/monitor/TNetSpeedLog.h</itemPath>
+        <itemPath>inc/monitor/TStorageMonitorThriftHandler.h</itemPath>
+        <itemPath>inc/monitor/TStorageStatModule.h</itemPath>
+        <itemPath>inc/monitor/TSysLoadLog.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="PocoEx" projectFiles="true">
+        <itemPath>inc/PocoEx/FileUtil.h</itemPath>
+        <itemPath>inc/PocoEx/NetUtil.h</itemPath>
+        <itemPath>inc/PocoEx/SharedMemoryEx.h</itemPath>
+        <itemPath>inc/PocoEx/TimeUtils.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Storage" displayName="Storage" projectFiles="true">
+        <itemPath>inc/Storage/AbstractKVStorage.h</itemPath>
+        <itemPath>inc/Storage/MultiKVStorage.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="thriftutil" displayName="thriftutil" projectFiles="true">
+        <itemPath>inc/thriftutil/ClientManagerT.h</itemPath>
+        <itemPath>inc/thriftutil/TClient.h</itemPath>
+        <itemPath>inc/thriftutil/TCompressSerializer.h</itemPath>
+        <itemPath>inc/thriftutil/TSerializer.h</itemPath>
+        <itemPath>inc/thriftutil/TThriftServer.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Util" displayName="Util" projectFiles="true">
+        <itemPath>inc/Util/IDGenerator.h</itemPath>
+      </logicalFolder>
+      <itemPath>inc/Storage/AbstractStorageFactory.h</itemPath>
+      <itemPath>inc/Endpoint.h</itemPath>
+      <itemPath>inc/EndpointManager.h</itemPath>
+      <itemPath>inc/LiteEndpointManager.h</itemPath>
+      <itemPath>inc/NQueueCenterWorker.h</itemPath>
+      <itemPath>inc/OpenBaseHandler.h</itemPath>
+      <itemPath>inc/ServiceFactoryT.h</itemPath>
+      <itemPath>inc/ServiceThriftHandlerBaseT.h</itemPath>
+      <itemPath>inc/SimpleServiceFactory.h</itemPath>
+      <itemPath>inc/Util/SpinLock.h</itemPath>
+      <itemPath>inc/StorageFactory.h</itemPath>
+      <itemPath>inc/ZKRegister.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f1" displayName="rpc" projectFiles="true">
+      <logicalFolder name="gen-cpp" displayName="gen-cpp" projectFiles="true">
+        <itemPath>thrift/gen-cpp/MonitorReadService.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/MonitorReadService.h</itemPath>
+        <itemPath>thrift/gen-cpp/OpenBaseService.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/OpenBaseService.h</itemPath>
+        <itemPath>thrift/gen-cpp/StorageMonitorService.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/StorageMonitorService.h</itemPath>
+        <itemPath>thrift/gen-cpp/TBackendManagerService.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/TBackendManagerService.h</itemPath>
+        <itemPath>thrift/gen-cpp/TNodeServiceBase.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/TNodeServiceBase.h</itemPath>
+        <itemPath>thrift/gen-cpp/TP2PService.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/TP2PService.h</itemPath>
+        <itemPath>thrift/gen-cpp/backendmonitor_constants.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/backendmonitor_constants.h</itemPath>
+        <itemPath>thrift/gen-cpp/backendmonitor_types.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/backendmonitor_types.h</itemPath>
+        <itemPath>thrift/gen-cpp/distributed_constants.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/distributed_constants.h</itemPath>
+        <itemPath>thrift/gen-cpp/distributed_types.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/distributed_types.h</itemPath>
+        <itemPath>thrift/gen-cpp/monitor_constants.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/monitor_constants.h</itemPath>
+        <itemPath>thrift/gen-cpp/monitor_types.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/monitor_types.h</itemPath>
+        <itemPath>thrift/gen-cpp/openbase_constants.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/openbase_constants.h</itemPath>
+        <itemPath>thrift/gen-cpp/openbase_types.cpp</itemPath>
+        <itemPath>thrift/gen-cpp/openbase_types.h</itemPath>
+      </logicalFolder>
+      <itemPath>thrift/backendmonitor.thrift</itemPath>
+      <itemPath>thrift/distributed.thrift</itemPath>
+      <itemPath>thrift/monitor.thrift</itemPath>
+      <itemPath>thrift/openbase.thrift</itemPath>
+      <itemPath>thrift/thriftgen.sh</itemPath>
+    </logicalFolder>
+    <logicalFolder name="src" displayName="src" projectFiles="true">
+      <logicalFolder name="Distributed" displayName="Distributed" projectFiles="true">
+        <itemPath>src/Distributed/BackendActiveChecker.cpp</itemPath>
+        <itemPath>src/Distributed/BackendInfo.cpp</itemPath>
+        <itemPath>src/Distributed/BackendManager.cpp</itemPath>
+        <itemPath>src/Distributed/BasicBackendManagerHandler.cpp</itemPath>
+        <itemPath>src/Distributed/BasicProxyFactory.cpp</itemPath>
+        <itemPath>src/Distributed/CHBackendManager.cpp</itemPath>
+        <itemPath>src/Distributed/RepBackendManager.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Hashing" displayName="Hashing" projectFiles="true">
+        <itemPath>src/Hashing/CastingHasher.cpp</itemPath>
+        <itemPath>src/Hashing/DefaultHasher.cpp</itemPath>
+        <itemPath>src/Hashing/MurmurHasher.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="monitor" displayName="monitor" projectFiles="true">
+        <itemPath>src/monitor/ServiceStatFetcher.cpp</itemPath>
+        <itemPath>src/monitor/StatSubsystem.cpp</itemPath>
+        <itemPath>src/monitor/TBackendLog.cpp</itemPath>
+        <itemPath>src/monitor/TMonitorThriftHandler.cpp</itemPath>
+        <itemPath>src/monitor/TMonitorThriftServer.cpp</itemPath>
+        <itemPath>src/monitor/TStorageMonitorThriftHandler.cpp</itemPath>
+        <itemPath>src/monitor/TStorageStatModule.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Storage" displayName="Storage" projectFiles="true">
+        <itemPath>src/Storage/MultiKVStorage.cpp</itemPath>
+        <itemPath>src/Storage/StorageFactory.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Util" displayName="Util" projectFiles="true">
+        <itemPath>src/Util/IDGenerator.cpp</itemPath>
+      </logicalFolder>
+      <itemPath>src/Endpoint.cpp</itemPath>
+      <itemPath>src/EndpointManager.cpp</itemPath>
+      <itemPath>src/LiteEndpointManager.cpp</itemPath>
+      <itemPath>src/NetUtil.cpp</itemPath>
+      <itemPath>src/OpenBaseHandler.cpp</itemPath>
+      <itemPath>src/SharedMemoryEx.cpp</itemPath>
+      <itemPath>src/ZKRegister.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2"
+                     displayName="CatchTest"
+                     projectFiles="true"
+                     kind="TEST">
+      </logicalFolder>
+      <logicalFolder name="f1"
+                     displayName="ManualTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/TestZK.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="ZKRegisterTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/ZKRegisterTest.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>inc</pElem>
+            <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
+            <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
+            <pElem>../../contribs/SpecialContribs/src/</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_LIBSTATGRAB</Elem>
+            <Elem>HAVE_CONFIG_H</Elem>
+            <Elem>THREADED</Elem>
+            <Elem>_GNU_SOURCE</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>inc</pElem>
+            <pElem>../../contribs/LibEvent/include</pElem>
+            <pElem>../../contribs/Boost/include</pElem>
+            <pElem>../../contribs/Poco/include</pElem>
+            <pElem>../../contribs/ApacheThrift/include</pElem>
+            <pElem>../../contribs/SpecialContribs/include</pElem>
+            <pElem>thrift/gen-cpp</pElem>
+            <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
+            <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
+            <pElem>../../contribs/SpecialContribs/src/</pElem>
+          </incDir>
+          <commandLine>-std=c++0x</commandLine>
+          <preprocessorList>
+            <Elem>BUILD_LIBSTATGRAB</Elem>
+            <Elem>HAVE_CONFIG_H</Elem>
+            <Elem>THREADED</Elem>
+            <Elem>_GNU_SOURCE</Elem>
+          </preprocessorList>
+        </ccTool>
+        <archiverTool>
+          <output>lib/libbasefoundationd.a</output>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>inc</pElem>
+            <pElem>../../contribs/UPPoco/inc</pElem>
+            <pElem>../../contribs/UPThrift/inc</pElem>
+            <pElem>../../contribs/UPEvent/inc</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>lib</pElem>
+            <pElem>../../contribs/Test/Catch</pElem>
+            <pElem>../../contribs/UPPoco/lib</pElem>
+            <pElem>../../contribs/UPThrift/lib</pElem>
+            <pElem>../../contribs/UPEvent/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>upbased</linkerLibLibItem>
+            <linkerLibLibItem>uppoco</linkerLibLibItem>
+            <linkerLibLibItem>upthrift</linkerLibLibItem>
+            <linkerLibLibItem>upevent</linkerLibLibItem>
+            <linkerLibLibItem>pthread</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
+            <linkerLibLibItem>rt</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <commandLine>-std=c++0x</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/ARCLLCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/AbstractCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/AbstractReplacableCache.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Caching/CacheBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/CacheFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/DefaultCacheFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/DirtyLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HFLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLKCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLKLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLLLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/MemoryStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendActiveChecker.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BasicBackendManagerHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/BasicProxyFactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/CHBackendManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/RepBackendManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Endpoint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/EndpointManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/CastingHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/DefaultHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/Hasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/MurmurHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/OpenHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/LiteEndpointManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/NQueueCenterWorker.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/OpenBaseHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/FileUtil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/NetUtil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/SharedMemoryEx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/TimeUtils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ServiceFactoryT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ServiceThriftHandlerBaseT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/SimpleServiceFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/AbstractKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/AbstractStorageFactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Storage/MultiKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Util/SpinLock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ZKRegister.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/boost/atomic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/boost/memory_order.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/ServiceStatFetcher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/StatSubsystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TBackendLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TCpuUsageLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TDayStat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TDiskSpeedLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TMemoryUsageLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TMonitorThriftHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/monitor/TMonitorThriftServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TNetSpeedLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TStorageMonitorThriftHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/monitor/TStorageStatModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TSysLoadLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/ClientManagerT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TClient.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TCompressSerializer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TSerializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TThriftServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendActiveChecker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Distributed/BasicProxyFactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/CHBackendManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/RepBackendManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Endpoint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/CastingHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/DefaultHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/MurmurHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LiteEndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NetUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OpenBaseHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SharedMemoryEx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/MultiKVStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ZKRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/StatSubsystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/TBackendLog.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/TMonitorThriftHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TMonitorThriftServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TStorageMonitorThriftHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TStorageStatModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/ZKRegisterTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/backendmonitor.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/distributed.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/MonitorReadService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/MonitorReadService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/OpenBaseService.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/OpenBaseService.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/StorageMonitorService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/StorageMonitorService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TBackendManagerService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TBackendManagerService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TNodeServiceBase.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TNodeServiceBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TP2PService.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TP2PService.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_constants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/monitor.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/openbase.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/thriftgen.sh" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>src/libs/zookeeper</pElem>
+            <pElem>src/libs/libstatgrab</pElem>
+            <pElem>libs/hashkit</pElem>
+            <pElem>inc</pElem>
+            <pElem>libs</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_LIBSTATGRAB</Elem>
+            <Elem>HAVE_CONFIG_H</Elem>
+            <Elem>THREADED</Elem>
+            <Elem>_GNU_SOURCE</Elem>
+          </preprocessorList>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>inc</pElem>
+            <pElem>src/libs/zookeeper</pElem>
+            <pElem>src/libs</pElem>
+            <pElem>src/libs/libstatgrab</pElem>
+            <pElem>../../contribs/LibEvent/include</pElem>
+            <pElem>../../contribs/Boost/include</pElem>
+            <pElem>../../contribs/Poco/include</pElem>
+            <pElem>../../contribs/ApacheThrift/include</pElem>
+            <pElem>../../contribs/SpecialContribs/include</pElem>
+            <pElem>libs</pElem>
+            <pElem>thrift/gen-cpp</pElem>
+          </incDir>
+          <commandLine>-std=c++0x</commandLine>
+          <preprocessorList>
+            <Elem>BUILD_LIBSTATGRAB</Elem>
+            <Elem>HAVE_CONFIG_H</Elem>
+            <Elem>THREADED</Elem>
+            <Elem>_GNU_SOURCE</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+          <output>lib/libbasefoundation.a</output>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>inc</pElem>
+            <pElem>../../contribs/UPPoco/inc</pElem>
+            <pElem>../../contribs/UPThrift/inc</pElem>
+            <pElem>../../contribs/UPEvent/inc</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>lib</pElem>
+            <pElem>../../contribs/Test/Catch</pElem>
+            <pElem>../../contribs/UPPoco/lib</pElem>
+            <pElem>../../contribs/UPThrift/lib</pElem>
+            <pElem>../../contribs/UPEvent/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>upbased</linkerLibLibItem>
+            <linkerLibLibItem>uppoco</linkerLibLibItem>
+            <linkerLibLibItem>upthrift</linkerLibLibItem>
+            <linkerLibLibItem>upevent</linkerLibLibItem>
+            <linkerLibLibItem>pthread</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <commandLine>-std=c++0x</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/zkregistertest</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../contribs/UPPoco"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../contribs/UPPoco"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="lib/libuppocod.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/ARCLLCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/AbstractCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/AbstractReplacableCache.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Caching/CacheBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/CacheFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/DefaultCacheFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/DirtyLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HFLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLKCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLKLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/HLLLRUCache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Caching/MemoryStats.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendActiveChecker.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BackendManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/BasicBackendManagerHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/BasicProxyFactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Distributed/CHBackendManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Distributed/RepBackendManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Endpoint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/EndpointManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/CastingHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/DefaultHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/Hasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/MurmurHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Hashing/OpenHasher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/LiteEndpointManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/NQueueCenterWorker.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/OpenBaseHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/FileUtil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/NetUtil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/SharedMemoryEx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/PocoEx/TimeUtils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ServiceFactoryT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ServiceThriftHandlerBaseT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/SimpleServiceFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/AbstractKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/AbstractStorageFactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/Storage/MultiKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Util/SpinLock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/ZKRegister.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/boost/atomic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/boost/memory_order.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/ServiceStatFetcher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/StatSubsystem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TBackendLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TCpuUsageLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TDayStat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TDiskSpeedLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TMemoryUsageLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TMonitorThriftHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/monitor/TMonitorThriftServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TNetSpeedLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TStorageMonitorThriftHandler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/monitor/TStorageStatModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/monitor/TSysLoadLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/ClientManagerT.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TClient.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TCompressSerializer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TSerializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/thriftutil/TThriftServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendActiveChecker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Distributed/BackendManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Distributed/BasicProxyFactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/CHBackendManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Distributed/RepBackendManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/Endpoint.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/CastingHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/DefaultHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Hashing/MurmurHasher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LiteEndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NetUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/OpenBaseHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SharedMemoryEx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/MultiKVStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ZKRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/StatSubsystem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/TBackendLog.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/TMonitorThriftHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TMonitorThriftServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TStorageMonitorThriftHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/monitor/TStorageStatModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/ZKRegisterTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/backendmonitor.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/distributed.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/MonitorReadService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/MonitorReadService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/OpenBaseService.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/OpenBaseService.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/StorageMonitorService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/StorageMonitorService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TBackendManagerService.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TBackendManagerService.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TNodeServiceBase.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TNodeServiceBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TP2PService.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/TP2PService.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/backendmonitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/distributed_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_constants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/monitor_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift/gen-cpp/openbase_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/monitor.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/openbase.thrift" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift/thriftgen.sh" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
