@@ -19,7 +19,9 @@ public:
 	EAnyType = 0,
 	EHttp,
 	EThriftBinary,
-	EThriftCompact
+	EThriftCompact,
+        EGrpc,
+        EGrpcWeb
     };
 public:
     Endpoint();

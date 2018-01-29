@@ -54,7 +54,7 @@ public:
     static Poco::SharedPtr<CacheType> getSecondCache(); // cache using in dumping
     static Poco::SharedPtr<ObjectStgType> getBEStorage();
     static Poco::SharedPtr<PersistentType> getStorage();
-    static Poco::SharedPtr<Up::Storage::MultiKVStorage> getKVStorage();
+    static Poco::SharedPtr<openstars::storage::MultiKVStorage> getKVStorage();
     static Poco::SharedPtr<ModelType> getModel();   
     static Poco::SharedPtr<ServiceStatFetcher> getStatFetcher();
 
@@ -250,7 +250,7 @@ void service_factory_clss::init(Poco::Util::Application& app
     Poco::StringTokenizer aReadTkn(aReadStorageNames, ", ;");
     for (size_t aIndex = 0; aIndex < aReadTkn.count(); aIndex++) {
         app.logger().information("Enable Read to " + aReadTkn[aIndex]);
-        getKVStorage()->enableStorage(aReadTkn[aIndex], true, Up::Storage::ERead);
+        getKVStorage()->enableStorage(aReadTkn[aIndex], true, openstars::storage::ERead);
 
     }
 
@@ -258,7 +258,7 @@ void service_factory_clss::init(Poco::Util::Application& app
     Poco::StringTokenizer aWriteTkn(aWriteStorageNames, ", ;");
     for (size_t aIndex = 0; aIndex < aWriteTkn.count(); aIndex++) {
         app.logger().information("Enable Write to " + aWriteTkn[aIndex]);
-        getKVStorage()->enableStorage(aWriteTkn[aIndex], true, Up::Storage::EWrite);
+        getKVStorage()->enableStorage(aWriteTkn[aIndex], true, openstars::storage::EWrite);
 
     }
     ///////zookeeper options
@@ -317,7 +317,7 @@ Poco::SharedPtr<PersistentType> service_factory_clss::getStorage() {
         aPersistentStorage = new PersistentType(getCache(), getSecondCache(), getBEStorage() );
         if (_enableSafeAsyncWrite > 0) {
                 aPersistentStorage -> setEvictProcessor(
-                new Up::Storage::SafeEvictProcessor<typename PersistentType::TKey,typename PersistentType::TValue> );
+                new openstars::storage::SafeEvictProcessor<typename PersistentType::TKey,typename PersistentType::TValue> );
                 
                 getCache()->startEvict();
         }
@@ -332,10 +332,10 @@ Poco::SharedPtr<PersistentType> service_factory_clss::getStorage() {
 }
 
 service_factory_tmpl
-Poco::SharedPtr<Up::Storage::MultiKVStorage> service_factory_clss::getKVStorage() {
-    static Poco::SharedPtr<Up::Storage::MultiKVStorage> aKVStg;
+Poco::SharedPtr<openstars::storage::MultiKVStorage> service_factory_clss::getKVStorage() {
+    static Poco::SharedPtr<openstars::storage::MultiKVStorage> aKVStg;
     if (!aKVStg) {
-        aKVStg = new Up::Storage::MultiKVStorage();
+        aKVStg = new openstars::storage::MultiKVStorage();
     }
     return aKVStg;
 }
@@ -385,8 +385,8 @@ service_factory_tmpl
 void service_factory_clss::initStorage(const std::string& configString) {
 	std::string name;
 	int rwmode;
-    Up::Storage::KVStorageFactory aFactory;
-    Up::Storage::AbstractKVStorage::Ptr stg = aFactory.createStorage(configString, name, rwmode);	
+    openstars::storage::KVStorageFactory aFactory;
+    openstars::storage::AbstractKVStorage::Ptr stg = aFactory.createStorage(configString, name, rwmode);	
     if (getKVStorage()->getStorage(name).get() !=  NULL)
     {
         //existed, abort 
@@ -395,7 +395,7 @@ void service_factory_clss::initStorage(const std::string& configString) {
     std::cout<<"initializing storage for : "<<configString<<" with parsed name:"<<name<<std::endl;
     getKVStorage()->addStorage(name, stg);
     std::cout<<"ok1"<<std::endl;
-    getKVStorage()->enableStorage(name, true, (Up::Storage::TOperations)rwmode );
+    getKVStorage()->enableStorage(name, true, (openstars::storage::TOperations)rwmode );
     std::cout<<"ok"<<std::endl;
 }
 

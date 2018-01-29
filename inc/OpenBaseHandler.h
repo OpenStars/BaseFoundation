@@ -73,7 +73,7 @@ public:
     /**
      * Set server handle for shutdown method
      */
-    void setServer(boost::shared_ptr<TServer> server) {
+    void setServer(apache::thrift::stdcxx::shared_ptr<TServer> server) {
         server_ = server;
     }
 
@@ -90,7 +90,7 @@ private:
 
     ReadWriteCounterMap counters_;
 
-    boost::shared_ptr<TServer> server_;
+    apache::thrift::stdcxx::shared_ptr<TServer> server_;
 
 };
 

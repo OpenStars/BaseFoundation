@@ -51,7 +51,6 @@ namespace openstars { namespace caching {
             size_t _lockSize;
             size_t _expireTime;	//milisecond
 			size_t _lruExpire;	//expire time in seconds for BagLRUCache
-            _TKey _deletedKey;
             std::string _type;
 			int _hotPercent;
 			int _accessPercentStep;

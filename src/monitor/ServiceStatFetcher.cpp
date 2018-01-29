@@ -10,12 +10,12 @@
 
 class BackendStatFetcher:public ServiceStatFetcher{
 public:
-    typedef Up::Caching::CacheBase CacheType;
-    typedef Up::Storage::CachePersistentBase CachePersistent;
+    typedef openstars::caching::CacheBase CacheType;
+    typedef openstars::storage::CachePersistentBase CachePersistent;
     
     BackendStatFetcher(CacheType& aCache 
         , CachePersistent& aCachePersistent
-        , Up::Storage::MultiKVStorage& aStorage)
+        , openstars::storage::MultiKVStorage& aStorage)
     :_cache(aCache)
     ,_cachePersistent(aCachePersistent)
     ,_storage(aStorage){}
@@ -59,13 +59,13 @@ public:
 protected:
     CacheType& _cache;
     CachePersistent& _cachePersistent;
-    Up::Storage::MultiKVStorage& _storage;
+    openstars::storage::MultiKVStorage& _storage;
 };
 
 ServiceStatFetcher* ServiceStatFetcher::createFetcher(
-    Up::Caching::CacheBase& aCache,
-    Up::Storage::CachePersistentBase& aCachePersistent,
-        Up::Storage::MultiKVStorage& aStorage ) {
+    openstars::caching::CacheBase& aCache, 
+    openstars::storage::CachePersistentBase& aCachePersistent,
+        openstars::storage::MultiKVStorage& aStorage ) {
     
     return new BackendStatFetcher(aCache, aCachePersistent, aStorage);
 }

@@ -35,7 +35,7 @@ using namespace std;
  * Locking: bucket based, spinlock 
  */
 template <class _TKey, class _TValue, class _THash = boost::hash<_TKey> , class _MemSizeGetter = MemSizeGetter>
-class ARCLKCache: public Up::Caching::AbstractCache<_TKey, _TValue, _MemSizeGetter>  {
+class ARCLKCache: public openstars::caching::AbstractCache<_TKey, _TValue, _MemSizeGetter>  {
 #ifndef MAX
 #define MAX(a, b) ( (a) > (b) ? (a) : (b) )
 #define MIN(a, b) ( (a) < (b) ? (a) : (b) )

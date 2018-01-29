@@ -237,7 +237,7 @@ protected:
         
     };
 
-    typedef Up::Caching::SpinLock MutexType;
+    typedef openstars::caching::SpinLock MutexType;
     typedef MutexType::ScopedLock ScopedLockType;
 
     typedef std::vector <TBucket> DataHolder;

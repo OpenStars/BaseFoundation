@@ -60,7 +60,13 @@
       </logicalFolder>
       <logicalFolder name="Storage" displayName="Storage" projectFiles="true">
         <itemPath>inc/Storage/AbstractKVStorage.h</itemPath>
+        <itemPath>inc/Storage/CachePersistent.h</itemPath>
+        <itemPath>inc/Storage/CachePersistentBase.h</itemPath>
+        <itemPath>inc/Storage/EvictProcessors.h</itemPath>
+        <itemPath>inc/Storage/LightCachePersistent.h</itemPath>
         <itemPath>inc/Storage/MultiKVStorage.h</itemPath>
+        <itemPath>inc/Storage/ObjectStorage.h</itemPath>
+        <itemPath>inc/StorageFactory.h</itemPath>
       </logicalFolder>
       <logicalFolder name="thriftutil" displayName="thriftutil" projectFiles="true">
         <itemPath>inc/thriftutil/ClientManagerT.h</itemPath>
@@ -82,7 +88,6 @@
       <itemPath>inc/ServiceThriftHandlerBaseT.h</itemPath>
       <itemPath>inc/SimpleServiceFactory.h</itemPath>
       <itemPath>inc/Util/SpinLock.h</itemPath>
-      <itemPath>inc/StorageFactory.h</itemPath>
       <itemPath>inc/ZKRegister.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="rpc" projectFiles="true">
@@ -156,6 +161,7 @@
       <itemPath>src/Endpoint.cpp</itemPath>
       <itemPath>src/EndpointManager.cpp</itemPath>
       <itemPath>src/LiteEndpointManager.cpp</itemPath>
+      <itemPath>src/Caching/MemoryStats.cpp</itemPath>
       <itemPath>src/NetUtil.cpp</itemPath>
       <itemPath>src/OpenBaseHandler.cpp</itemPath>
       <itemPath>src/SharedMemoryEx.cpp</itemPath>
@@ -405,7 +411,17 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="inc/Storage/CachePersistent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/CachePersistentBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/EvictProcessors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/LightCachePersistent.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Storage/MultiKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/ObjectStorage.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -464,6 +480,8 @@
       </item>
       <item path="inc/thriftutil/TThriftServer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Caching/MemoryStats.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/Distributed/BackendActiveChecker.cpp"
             ex="false"
             tool="1"
@@ -513,6 +531,8 @@
       <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ZKRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/ServiceStatFetcher.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/monitor/StatSubsystem.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -684,16 +704,15 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>inc</pElem>
-            <pElem>src/libs/zookeeper</pElem>
-            <pElem>src/libs</pElem>
-            <pElem>src/libs/libstatgrab</pElem>
             <pElem>../../contribs/LibEvent/include</pElem>
             <pElem>../../contribs/Boost/include</pElem>
             <pElem>../../contribs/Poco/include</pElem>
             <pElem>../../contribs/ApacheThrift/include</pElem>
             <pElem>../../contribs/SpecialContribs/include</pElem>
-            <pElem>libs</pElem>
             <pElem>thrift/gen-cpp</pElem>
+            <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
+            <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
+            <pElem>../../contribs/SpecialContribs/src/</pElem>
           </incDir>
           <commandLine>-std=c++0x</commandLine>
           <preprocessorList>
@@ -892,7 +911,17 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="inc/Storage/CachePersistent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/CachePersistentBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/EvictProcessors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/LightCachePersistent.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Storage/MultiKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="inc/Storage/ObjectStorage.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -951,6 +980,8 @@
       </item>
       <item path="inc/thriftutil/TThriftServer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Caching/MemoryStats.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/Distributed/BackendActiveChecker.cpp"
             ex="false"
             tool="1"
@@ -1000,6 +1031,8 @@
       <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ZKRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/monitor/ServiceStatFetcher.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/monitor/StatSubsystem.cpp" ex="false" tool="1" flavor2="0">
       </item>

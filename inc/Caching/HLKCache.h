@@ -270,7 +270,7 @@ protected:
 //    typedef typename TBucket::const_iterator BConstIterator; // bucket iterator
     
 //    typedef Poco::FastMutex MutexType;
-    typedef Up::Caching::SpinLock MutexType;
+    typedef openstars::caching::SpinLock MutexType;
     typedef MutexType::ScopedLock ScopedLockType;
 
     typedef std::vector <TBucket> DataHolder;

@@ -12,8 +12,6 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 using namespace ::apache::thrift::server;
 
-using boost::shared_ptr;
-
 using namespace  ::openstars::base::monitor;
 
 class MonitorReadServiceHandler : virtual public MonitorReadServiceIf {
@@ -36,11 +34,11 @@ class MonitorReadServiceHandler : virtual public MonitorReadServiceIf {
 
 int main(int argc, char **argv) {
   int port = 9090;
-  shared_ptr<MonitorReadServiceHandler> handler(new MonitorReadServiceHandler());
-  shared_ptr<TProcessor> processor(new MonitorReadServiceProcessor(handler));
-  shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
-  shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-  shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+  ::apache::thrift::stdcxx::shared_ptr<MonitorReadServiceHandler> handler(new MonitorReadServiceHandler());
+  ::apache::thrift::stdcxx::shared_ptr<TProcessor> processor(new MonitorReadServiceProcessor(handler));
+  ::apache::thrift::stdcxx::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+  ::apache::thrift::stdcxx::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+  ::apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
   TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
   server.serve();

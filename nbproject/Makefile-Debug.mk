@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/Caching/MemoryStats.o \
 	${OBJECTDIR}/src/Distributed/BackendActiveChecker.o \
 	${OBJECTDIR}/src/Distributed/BackendInfo.o \
 	${OBJECTDIR}/src/Distributed/BackendManager.o \
@@ -54,6 +55,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Storage/StorageFactory.o \
 	${OBJECTDIR}/src/Util/IDGenerator.o \
 	${OBJECTDIR}/src/ZKRegister.o \
+	${OBJECTDIR}/src/monitor/ServiceStatFetcher.o \
 	${OBJECTDIR}/src/monitor/StatSubsystem.o \
 	${OBJECTDIR}/src/monitor/TBackendLog.o \
 	${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o \
@@ -114,6 +116,11 @@ lib/libbasefoundationd.a: ${OBJECTFILES}
 	${RM} lib/libbasefoundationd.a
 	${AR} -rv lib/libbasefoundationd.a ${OBJECTFILES} 
 	$(RANLIB) lib/libbasefoundationd.a
+
+${OBJECTDIR}/src/Caching/MemoryStats.o: src/Caching/MemoryStats.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/Caching
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Caching/MemoryStats.o src/Caching/MemoryStats.cpp
 
 ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o: src/Distributed/BackendActiveChecker.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
@@ -209,6 +216,11 @@ ${OBJECTDIR}/src/ZKRegister.o: src/ZKRegister.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister.o src/ZKRegister.cpp
+
+${OBJECTDIR}/src/monitor/ServiceStatFetcher.o: src/monitor/ServiceStatFetcher.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/monitor
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o src/monitor/ServiceStatFetcher.cpp
 
 ${OBJECTDIR}/src/monitor/StatSubsystem.o: src/monitor/StatSubsystem.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
@@ -341,6 +353,19 @@ ${TESTDIR}/tests/ZKRegisterTest.o: tests/ZKRegisterTest.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ZKRegisterTest.o tests/ZKRegisterTest.cpp
 
+
+${OBJECTDIR}/src/Caching/MemoryStats_nomain.o: ${OBJECTDIR}/src/Caching/MemoryStats.o src/Caching/MemoryStats.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Caching
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Caching/MemoryStats.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Caching/MemoryStats_nomain.o src/Caching/MemoryStats.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/Caching/MemoryStats.o ${OBJECTDIR}/src/Caching/MemoryStats_nomain.o;\
+	fi
 
 ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o: ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o src/Distributed/BackendActiveChecker.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
@@ -587,6 +612,19 @@ ${OBJECTDIR}/src/ZKRegister_nomain.o: ${OBJECTDIR}/src/ZKRegister.o src/ZKRegist
 	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister_nomain.o src/ZKRegister.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ZKRegister.o ${OBJECTDIR}/src/ZKRegister_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o: ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o src/monitor/ServiceStatFetcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/monitor
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o src/monitor/ServiceStatFetcher.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o ${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o: ${OBJECTDIR}/src/monitor/StatSubsystem.o src/monitor/StatSubsystem.cpp 

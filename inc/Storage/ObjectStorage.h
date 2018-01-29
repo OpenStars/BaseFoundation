@@ -18,7 +18,7 @@ using namespace std;
  * Backend Storage is used to persistent object to key-value Storage.
  * 
  */
-namespace Up { namespace Storage {
+namespace openstars { namespace storage{
     
 template <class _KeyType, class _ValueType>
 class NULLObjectStorage{
@@ -50,7 +50,7 @@ public:
     typedef _ValueType MObj;
     typedef _KeyType KType;
 
-    ObjectStorage(const Poco::SharedPtr<Up::Storage::AbstractKVStorage>& stg) : m_storage(stg) {
+    ObjectStorage(const Poco::SharedPtr<openstars::storage::AbstractKVStorage>& stg) : m_storage(stg) {
         assert(m_storage);
     }
 
@@ -98,7 +98,7 @@ public:
         return true;
     }
 
-    void setKVStorage(const Poco::SharedPtr<Up::Storage::AbstractKVStorage>& stg) {
+    void setKVStorage(const Poco::SharedPtr<openstars::storage::AbstractKVStorage>& stg) {
         if (stg) {
             m_storage = stg;
             m_pstorage = m_storage.get();
@@ -109,8 +109,8 @@ public:
 
 
 protected:
-    Poco::SharedPtr<Up::Storage::AbstractKVStorage> m_storage;
-    Up::Storage::AbstractKVStorage* m_pstorage;
+    Poco::SharedPtr<openstars::storage::AbstractKVStorage> m_storage;
+    openstars::storage::AbstractKVStorage* m_pstorage;
 
 };
 
@@ -122,7 +122,7 @@ public:
     typedef _KeyType KType;
     typedef _ThriftType ThriftType;
 
-    ThriftObjectStorage(const Poco::SharedPtr<Up::Storage::AbstractKVStorage>& stg) : m_storage(stg) {
+    ThriftObjectStorage(const Poco::SharedPtr<openstars::storage::AbstractKVStorage>& stg) : m_storage(stg) {
         assert(m_storage);
     }
 
@@ -183,7 +183,7 @@ public:
         return true;
     }
 
-    void setKVStorage(const Poco::SharedPtr<Up::Storage::AbstractKVStorage>& stg) {
+    void setKVStorage(const Poco::SharedPtr<openstars::storage::AbstractKVStorage>& stg) {
         if (stg) {
             m_storage = stg;
             m_pstorage = m_storage.get();
@@ -194,8 +194,8 @@ public:
 
 
 protected:
-    Poco::SharedPtr<Up::Storage::AbstractKVStorage> m_storage;
-    Up::Storage::AbstractKVStorage* m_pstorage;
+    Poco::SharedPtr<openstars::storage::AbstractKVStorage> m_storage;
+    openstars::storage::AbstractKVStorage* m_pstorage;
 
 };
 

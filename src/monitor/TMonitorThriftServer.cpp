@@ -6,7 +6,7 @@
 #include <thrift/server/TThreadPoolServer.h>
 #include <thrift/server/TThreadedServer.h>
 #include <thrift/server/TNonblockingServer.h>
-#include <thrift/transport/TServerSocket.h>
+#include <thrift/transport/TNonblockingServerSocket.h>
 #include <thrift/transport/TTransportUtils.h>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/concurrency/PosixThreadFactory.h>
@@ -22,7 +22,7 @@ using namespace apache::thrift::concurrency;
 using namespace Poco::Util;
 
 
-using boost::shared_ptr;
+using apache::thrift::stdcxx::shared_ptr;
 
 
 // Runable thread
@@ -45,31 +45,31 @@ public:
             {
                 _app->logger().information("Thrift Monitor starting ...");
 
-                boost::shared_ptr<ServiceHandler> handler(new ServiceHandler());
-                boost::shared_ptr<TProcessor> processor(new ServiceProcessor(handler));
-                boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(_port));
-                boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-                boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+                apache::thrift::stdcxx::shared_ptr<ServiceHandler> handler(new ServiceHandler());
+                apache::thrift::stdcxx::shared_ptr<TProcessor> processor(new ServiceProcessor(handler));
+                apache::thrift::stdcxx::shared_ptr<TNonblockingServerTransport> serverTransport(new TNonblockingServerSocket(_port));
+                apache::thrift::stdcxx::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+                apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
 
                 int workerCount = _app->config().getInt("thrift.nb_threadpool.size", 1);
 
                 if (workerCount > 0) {
-                    boost::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
-                    boost::shared_ptr<PosixThreadFactory> threadFactory = boost::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+                    apache::thrift::stdcxx::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
+                    apache::thrift::stdcxx::shared_ptr<PosixThreadFactory> threadFactory = apache::thrift::stdcxx::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
                     threadManager->threadFactory(threadFactory);
                     
                     threadManager->start();
 
                     TNonblockingServer server(processor, protocolFactory,
-                                                    _port, threadManager);
+                                                    serverTransport, threadManager);
 
                     // start server
                     _app->logger().information("Thrift Monitor started");
                     server.serve();
 
                 } else {
-                    TNonblockingServer server(processor, protocolFactory, _port);
+                    TNonblockingServer server(processor, protocolFactory, serverTransport);
 
                     // start server
                     _app->logger().information("Thrift Monitor started");

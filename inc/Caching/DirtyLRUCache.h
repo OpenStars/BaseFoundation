@@ -36,7 +36,7 @@ using namespace std;
  * Fix hash table size 
  * Locking: bucket based, spinlock 
  */
-template <class _TKey, class _TValue, class _THash = boost::hash<_TKey> , class _MemSizeGetter = MemSizeGetter, class _MutexType = opestars::caching::SpinLock >
+template <class _TKey, class _TValue, class _THash = boost::hash<_TKey> , class _MemSizeGetter = MemSizeGetter, class _MutexType = openstars::caching::SpinLock >
 class DirtyLRUCache: public AbstractReplacableCache<_TKey, _TValue, _MemSizeGetter>  {
     
 public:

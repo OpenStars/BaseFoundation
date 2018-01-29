@@ -12,8 +12,6 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 using namespace ::apache::thrift::server;
 
-using boost::shared_ptr;
-
 using namespace  ::openstars::distributed;
 
 class TNodeServiceBaseHandler : virtual public TNodeServiceBaseIf {
@@ -41,11 +39,11 @@ class TNodeServiceBaseHandler : virtual public TNodeServiceBaseIf {
 
 int main(int argc, char **argv) {
   int port = 9090;
-  shared_ptr<TNodeServiceBaseHandler> handler(new TNodeServiceBaseHandler());
-  shared_ptr<TProcessor> processor(new TNodeServiceBaseProcessor(handler));
-  shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
-  shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-  shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+  ::apache::thrift::stdcxx::shared_ptr<TNodeServiceBaseHandler> handler(new TNodeServiceBaseHandler());
+  ::apache::thrift::stdcxx::shared_ptr<TProcessor> processor(new TNodeServiceBaseProcessor(handler));
+  ::apache::thrift::stdcxx::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+  ::apache::thrift::stdcxx::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+  ::apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
   TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
   server.serve();

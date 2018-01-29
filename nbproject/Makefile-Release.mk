@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/Caching/MemoryStats.o \
 	${OBJECTDIR}/src/Distributed/BackendActiveChecker.o \
 	${OBJECTDIR}/src/Distributed/BackendInfo.o \
 	${OBJECTDIR}/src/Distributed/BackendManager.o \
@@ -54,6 +55,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Storage/StorageFactory.o \
 	${OBJECTDIR}/src/Util/IDGenerator.o \
 	${OBJECTDIR}/src/ZKRegister.o \
+	${OBJECTDIR}/src/monitor/ServiceStatFetcher.o \
 	${OBJECTDIR}/src/monitor/StatSubsystem.o \
 	${OBJECTDIR}/src/monitor/TBackendLog.o \
 	${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o \
@@ -115,200 +117,210 @@ lib/libbasefoundation.a: ${OBJECTFILES}
 	${AR} -rv lib/libbasefoundation.a ${OBJECTFILES} 
 	$(RANLIB) lib/libbasefoundation.a
 
+${OBJECTDIR}/src/Caching/MemoryStats.o: src/Caching/MemoryStats.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/Caching
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Caching/MemoryStats.o src/Caching/MemoryStats.cpp
+
 ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o: src/Distributed/BackendActiveChecker.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o src/Distributed/BackendActiveChecker.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o src/Distributed/BackendActiveChecker.cpp
 
 ${OBJECTDIR}/src/Distributed/BackendInfo.o: src/Distributed/BackendInfo.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendInfo.o src/Distributed/BackendInfo.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendInfo.o src/Distributed/BackendInfo.cpp
 
 ${OBJECTDIR}/src/Distributed/BackendManager.o: src/Distributed/BackendManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendManager.o src/Distributed/BackendManager.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendManager.o src/Distributed/BackendManager.cpp
 
 ${OBJECTDIR}/src/Distributed/BasicProxyFactory.o: src/Distributed/BasicProxyFactory.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BasicProxyFactory.o src/Distributed/BasicProxyFactory.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BasicProxyFactory.o src/Distributed/BasicProxyFactory.cpp
 
 ${OBJECTDIR}/src/Distributed/CHBackendManager.o: src/Distributed/CHBackendManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/CHBackendManager.o src/Distributed/CHBackendManager.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/CHBackendManager.o src/Distributed/CHBackendManager.cpp
 
 ${OBJECTDIR}/src/Distributed/RepBackendManager.o: src/Distributed/RepBackendManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/RepBackendManager.o src/Distributed/RepBackendManager.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/RepBackendManager.o src/Distributed/RepBackendManager.cpp
 
 ${OBJECTDIR}/src/Endpoint.o: src/Endpoint.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Endpoint.o src/Endpoint.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Endpoint.o src/Endpoint.cpp
 
 ${OBJECTDIR}/src/EndpointManager.o: src/EndpointManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager.o src/EndpointManager.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager.o src/EndpointManager.cpp
 
 ${OBJECTDIR}/src/Hashing/CastingHasher.o: src/Hashing/CastingHasher.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Hashing
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/CastingHasher.o src/Hashing/CastingHasher.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/CastingHasher.o src/Hashing/CastingHasher.cpp
 
 ${OBJECTDIR}/src/Hashing/DefaultHasher.o: src/Hashing/DefaultHasher.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Hashing
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/DefaultHasher.o src/Hashing/DefaultHasher.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/DefaultHasher.o src/Hashing/DefaultHasher.cpp
 
 ${OBJECTDIR}/src/Hashing/MurmurHasher.o: src/Hashing/MurmurHasher.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Hashing
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/MurmurHasher.o src/Hashing/MurmurHasher.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/MurmurHasher.o src/Hashing/MurmurHasher.cpp
 
 ${OBJECTDIR}/src/LiteEndpointManager.o: src/LiteEndpointManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager.o src/LiteEndpointManager.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager.o src/LiteEndpointManager.cpp
 
 ${OBJECTDIR}/src/NetUtil.o: src/NetUtil.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NetUtil.o src/NetUtil.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NetUtil.o src/NetUtil.cpp
 
 ${OBJECTDIR}/src/OpenBaseHandler.o: src/OpenBaseHandler.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OpenBaseHandler.o src/OpenBaseHandler.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OpenBaseHandler.o src/OpenBaseHandler.cpp
 
 ${OBJECTDIR}/src/SharedMemoryEx.o: src/SharedMemoryEx.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SharedMemoryEx.o src/SharedMemoryEx.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SharedMemoryEx.o src/SharedMemoryEx.cpp
 
 ${OBJECTDIR}/src/Storage/MultiKVStorage.o: src/Storage/MultiKVStorage.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Storage
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/MultiKVStorage.o src/Storage/MultiKVStorage.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/MultiKVStorage.o src/Storage/MultiKVStorage.cpp
 
 ${OBJECTDIR}/src/Storage/StorageFactory.o: src/Storage/StorageFactory.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Storage
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory.o src/Storage/StorageFactory.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory.o src/Storage/StorageFactory.cpp
 
 ${OBJECTDIR}/src/Util/IDGenerator.o: src/Util/IDGenerator.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Util
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Util/IDGenerator.o src/Util/IDGenerator.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Util/IDGenerator.o src/Util/IDGenerator.cpp
 
 ${OBJECTDIR}/src/ZKRegister.o: src/ZKRegister.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister.o src/ZKRegister.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister.o src/ZKRegister.cpp
+
+${OBJECTDIR}/src/monitor/ServiceStatFetcher.o: src/monitor/ServiceStatFetcher.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/monitor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o src/monitor/ServiceStatFetcher.cpp
 
 ${OBJECTDIR}/src/monitor/StatSubsystem.o: src/monitor/StatSubsystem.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/StatSubsystem.o src/monitor/StatSubsystem.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/StatSubsystem.o src/monitor/StatSubsystem.cpp
 
 ${OBJECTDIR}/src/monitor/TBackendLog.o: src/monitor/TBackendLog.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TBackendLog.o src/monitor/TBackendLog.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TBackendLog.o src/monitor/TBackendLog.cpp
 
 ${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o: src/monitor/TMonitorThriftHandler.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o src/monitor/TMonitorThriftHandler.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o src/monitor/TMonitorThriftHandler.cpp
 
 ${OBJECTDIR}/src/monitor/TMonitorThriftServer.o: src/monitor/TMonitorThriftServer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftServer.o src/monitor/TMonitorThriftServer.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftServer.o src/monitor/TMonitorThriftServer.cpp
 
 ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler.o: src/monitor/TStorageMonitorThriftHandler.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler.o src/monitor/TStorageMonitorThriftHandler.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler.o src/monitor/TStorageMonitorThriftHandler.cpp
 
 ${OBJECTDIR}/src/monitor/TStorageStatModule.o: src/monitor/TStorageStatModule.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/monitor
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageStatModule.o src/monitor/TStorageStatModule.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageStatModule.o src/monitor/TStorageStatModule.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService.o: thrift/gen-cpp/MonitorReadService.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService.o thrift/gen-cpp/MonitorReadService.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService.o thrift/gen-cpp/MonitorReadService.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService.o: thrift/gen-cpp/OpenBaseService.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService.o thrift/gen-cpp/OpenBaseService.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService.o thrift/gen-cpp/OpenBaseService.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService.o: thrift/gen-cpp/StorageMonitorService.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService.o thrift/gen-cpp/StorageMonitorService.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService.o thrift/gen-cpp/StorageMonitorService.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService.o: thrift/gen-cpp/TBackendManagerService.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService.o thrift/gen-cpp/TBackendManagerService.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService.o thrift/gen-cpp/TBackendManagerService.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase.o: thrift/gen-cpp/TNodeServiceBase.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase.o thrift/gen-cpp/TNodeServiceBase.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase.o thrift/gen-cpp/TNodeServiceBase.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/TP2PService.o: thrift/gen-cpp/TP2PService.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TP2PService.o thrift/gen-cpp/TP2PService.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TP2PService.o thrift/gen-cpp/TP2PService.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants.o: thrift/gen-cpp/backendmonitor_constants.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants.o thrift/gen-cpp/backendmonitor_constants.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants.o thrift/gen-cpp/backendmonitor_constants.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types.o: thrift/gen-cpp/backendmonitor_types.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types.o thrift/gen-cpp/backendmonitor_types.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types.o thrift/gen-cpp/backendmonitor_types.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/distributed_constants.o: thrift/gen-cpp/distributed_constants.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_constants.o thrift/gen-cpp/distributed_constants.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_constants.o thrift/gen-cpp/distributed_constants.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/distributed_types.o: thrift/gen-cpp/distributed_types.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_types.o thrift/gen-cpp/distributed_types.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_types.o thrift/gen-cpp/distributed_types.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/monitor_constants.o: thrift/gen-cpp/monitor_constants.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_constants.o thrift/gen-cpp/monitor_constants.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_constants.o thrift/gen-cpp/monitor_constants.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/monitor_types.o: thrift/gen-cpp/monitor_types.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_types.o thrift/gen-cpp/monitor_types.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_types.o thrift/gen-cpp/monitor_types.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/openbase_constants.o: thrift/gen-cpp/openbase_constants.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_constants.o thrift/gen-cpp/openbase_constants.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_constants.o thrift/gen-cpp/openbase_constants.cpp
 
 ${OBJECTDIR}/thrift/gen-cpp/openbase_types.o: thrift/gen-cpp/openbase_types.cpp
 	${MKDIR} -p ${OBJECTDIR}/thrift/gen-cpp
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_types.o thrift/gen-cpp/openbase_types.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_types.o thrift/gen-cpp/openbase_types.cpp
 
 # Subprojects
 .build-subprojects:
@@ -334,14 +346,27 @@ ${TESTDIR}/TestFiles/zkregistertest: ${TESTDIR}/tests/ZKRegisterTest.o ${OBJECTF
 ${TESTDIR}/tests/TestZK.o: tests/TestZK.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestZK.o tests/TestZK.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestZK.o tests/TestZK.cpp
 
 
 ${TESTDIR}/tests/ZKRegisterTest.o: tests/ZKRegisterTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ZKRegisterTest.o tests/ZKRegisterTest.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ZKRegisterTest.o tests/ZKRegisterTest.cpp
 
+
+${OBJECTDIR}/src/Caching/MemoryStats_nomain.o: ${OBJECTDIR}/src/Caching/MemoryStats.o src/Caching/MemoryStats.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Caching
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Caching/MemoryStats.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Caching/MemoryStats_nomain.o src/Caching/MemoryStats.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/Caching/MemoryStats.o ${OBJECTDIR}/src/Caching/MemoryStats_nomain.o;\
+	fi
 
 ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o: ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o src/Distributed/BackendActiveChecker.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/Distributed
@@ -351,7 +376,7 @@ ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o: ${OBJECTDIR}/src/Dis
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o src/Distributed/BackendActiveChecker.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o src/Distributed/BackendActiveChecker.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/BackendActiveChecker.o ${OBJECTDIR}/src/Distributed/BackendActiveChecker_nomain.o;\
 	fi
@@ -364,7 +389,7 @@ ${OBJECTDIR}/src/Distributed/BackendInfo_nomain.o: ${OBJECTDIR}/src/Distributed/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendInfo_nomain.o src/Distributed/BackendInfo.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendInfo_nomain.o src/Distributed/BackendInfo.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/BackendInfo.o ${OBJECTDIR}/src/Distributed/BackendInfo_nomain.o;\
 	fi
@@ -377,7 +402,7 @@ ${OBJECTDIR}/src/Distributed/BackendManager_nomain.o: ${OBJECTDIR}/src/Distribut
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendManager_nomain.o src/Distributed/BackendManager.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BackendManager_nomain.o src/Distributed/BackendManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/BackendManager.o ${OBJECTDIR}/src/Distributed/BackendManager_nomain.o;\
 	fi
@@ -390,7 +415,7 @@ ${OBJECTDIR}/src/Distributed/BasicProxyFactory_nomain.o: ${OBJECTDIR}/src/Distri
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BasicProxyFactory_nomain.o src/Distributed/BasicProxyFactory.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/BasicProxyFactory_nomain.o src/Distributed/BasicProxyFactory.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/BasicProxyFactory.o ${OBJECTDIR}/src/Distributed/BasicProxyFactory_nomain.o;\
 	fi
@@ -403,7 +428,7 @@ ${OBJECTDIR}/src/Distributed/CHBackendManager_nomain.o: ${OBJECTDIR}/src/Distrib
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/CHBackendManager_nomain.o src/Distributed/CHBackendManager.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/CHBackendManager_nomain.o src/Distributed/CHBackendManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/CHBackendManager.o ${OBJECTDIR}/src/Distributed/CHBackendManager_nomain.o;\
 	fi
@@ -416,7 +441,7 @@ ${OBJECTDIR}/src/Distributed/RepBackendManager_nomain.o: ${OBJECTDIR}/src/Distri
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/RepBackendManager_nomain.o src/Distributed/RepBackendManager.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Distributed/RepBackendManager_nomain.o src/Distributed/RepBackendManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Distributed/RepBackendManager.o ${OBJECTDIR}/src/Distributed/RepBackendManager_nomain.o;\
 	fi
@@ -429,7 +454,7 @@ ${OBJECTDIR}/src/Endpoint_nomain.o: ${OBJECTDIR}/src/Endpoint.o src/Endpoint.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Endpoint_nomain.o src/Endpoint.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Endpoint_nomain.o src/Endpoint.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Endpoint.o ${OBJECTDIR}/src/Endpoint_nomain.o;\
 	fi
@@ -442,7 +467,7 @@ ${OBJECTDIR}/src/EndpointManager_nomain.o: ${OBJECTDIR}/src/EndpointManager.o sr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager_nomain.o src/EndpointManager.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager_nomain.o src/EndpointManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EndpointManager.o ${OBJECTDIR}/src/EndpointManager_nomain.o;\
 	fi
@@ -455,7 +480,7 @@ ${OBJECTDIR}/src/Hashing/CastingHasher_nomain.o: ${OBJECTDIR}/src/Hashing/Castin
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/CastingHasher_nomain.o src/Hashing/CastingHasher.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/CastingHasher_nomain.o src/Hashing/CastingHasher.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Hashing/CastingHasher.o ${OBJECTDIR}/src/Hashing/CastingHasher_nomain.o;\
 	fi
@@ -468,7 +493,7 @@ ${OBJECTDIR}/src/Hashing/DefaultHasher_nomain.o: ${OBJECTDIR}/src/Hashing/Defaul
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/DefaultHasher_nomain.o src/Hashing/DefaultHasher.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/DefaultHasher_nomain.o src/Hashing/DefaultHasher.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Hashing/DefaultHasher.o ${OBJECTDIR}/src/Hashing/DefaultHasher_nomain.o;\
 	fi
@@ -481,7 +506,7 @@ ${OBJECTDIR}/src/Hashing/MurmurHasher_nomain.o: ${OBJECTDIR}/src/Hashing/MurmurH
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/MurmurHasher_nomain.o src/Hashing/MurmurHasher.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Hashing/MurmurHasher_nomain.o src/Hashing/MurmurHasher.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Hashing/MurmurHasher.o ${OBJECTDIR}/src/Hashing/MurmurHasher_nomain.o;\
 	fi
@@ -494,7 +519,7 @@ ${OBJECTDIR}/src/LiteEndpointManager_nomain.o: ${OBJECTDIR}/src/LiteEndpointMana
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager_nomain.o src/LiteEndpointManager.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager_nomain.o src/LiteEndpointManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/LiteEndpointManager.o ${OBJECTDIR}/src/LiteEndpointManager_nomain.o;\
 	fi
@@ -507,7 +532,7 @@ ${OBJECTDIR}/src/NetUtil_nomain.o: ${OBJECTDIR}/src/NetUtil.o src/NetUtil.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NetUtil_nomain.o src/NetUtil.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NetUtil_nomain.o src/NetUtil.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/NetUtil.o ${OBJECTDIR}/src/NetUtil_nomain.o;\
 	fi
@@ -520,7 +545,7 @@ ${OBJECTDIR}/src/OpenBaseHandler_nomain.o: ${OBJECTDIR}/src/OpenBaseHandler.o sr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OpenBaseHandler_nomain.o src/OpenBaseHandler.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OpenBaseHandler_nomain.o src/OpenBaseHandler.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/OpenBaseHandler.o ${OBJECTDIR}/src/OpenBaseHandler_nomain.o;\
 	fi
@@ -533,7 +558,7 @@ ${OBJECTDIR}/src/SharedMemoryEx_nomain.o: ${OBJECTDIR}/src/SharedMemoryEx.o src/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SharedMemoryEx_nomain.o src/SharedMemoryEx.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SharedMemoryEx_nomain.o src/SharedMemoryEx.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/SharedMemoryEx.o ${OBJECTDIR}/src/SharedMemoryEx_nomain.o;\
 	fi
@@ -546,7 +571,7 @@ ${OBJECTDIR}/src/Storage/MultiKVStorage_nomain.o: ${OBJECTDIR}/src/Storage/Multi
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/MultiKVStorage_nomain.o src/Storage/MultiKVStorage.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/MultiKVStorage_nomain.o src/Storage/MultiKVStorage.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Storage/MultiKVStorage.o ${OBJECTDIR}/src/Storage/MultiKVStorage_nomain.o;\
 	fi
@@ -559,7 +584,7 @@ ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o: ${OBJECTDIR}/src/Storage/Stora
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o src/Storage/StorageFactory.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o src/Storage/StorageFactory.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Storage/StorageFactory.o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o;\
 	fi
@@ -572,7 +597,7 @@ ${OBJECTDIR}/src/Util/IDGenerator_nomain.o: ${OBJECTDIR}/src/Util/IDGenerator.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Util/IDGenerator_nomain.o src/Util/IDGenerator.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Util/IDGenerator_nomain.o src/Util/IDGenerator.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Util/IDGenerator.o ${OBJECTDIR}/src/Util/IDGenerator_nomain.o;\
 	fi
@@ -585,9 +610,22 @@ ${OBJECTDIR}/src/ZKRegister_nomain.o: ${OBJECTDIR}/src/ZKRegister.o src/ZKRegist
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister_nomain.o src/ZKRegister.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ZKRegister_nomain.o src/ZKRegister.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ZKRegister.o ${OBJECTDIR}/src/ZKRegister_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o: ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o src/monitor/ServiceStatFetcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/monitor
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o src/monitor/ServiceStatFetcher.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/monitor/ServiceStatFetcher.o ${OBJECTDIR}/src/monitor/ServiceStatFetcher_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o: ${OBJECTDIR}/src/monitor/StatSubsystem.o src/monitor/StatSubsystem.cpp 
@@ -598,7 +636,7 @@ ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o: ${OBJECTDIR}/src/monitor/StatSu
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o src/monitor/StatSubsystem.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o src/monitor/StatSubsystem.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/StatSubsystem.o ${OBJECTDIR}/src/monitor/StatSubsystem_nomain.o;\
 	fi
@@ -611,7 +649,7 @@ ${OBJECTDIR}/src/monitor/TBackendLog_nomain.o: ${OBJECTDIR}/src/monitor/TBackend
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TBackendLog_nomain.o src/monitor/TBackendLog.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TBackendLog_nomain.o src/monitor/TBackendLog.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/TBackendLog.o ${OBJECTDIR}/src/monitor/TBackendLog_nomain.o;\
 	fi
@@ -624,7 +662,7 @@ ${OBJECTDIR}/src/monitor/TMonitorThriftHandler_nomain.o: ${OBJECTDIR}/src/monito
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftHandler_nomain.o src/monitor/TMonitorThriftHandler.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftHandler_nomain.o src/monitor/TMonitorThriftHandler.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/TMonitorThriftHandler.o ${OBJECTDIR}/src/monitor/TMonitorThriftHandler_nomain.o;\
 	fi
@@ -637,7 +675,7 @@ ${OBJECTDIR}/src/monitor/TMonitorThriftServer_nomain.o: ${OBJECTDIR}/src/monitor
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftServer_nomain.o src/monitor/TMonitorThriftServer.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TMonitorThriftServer_nomain.o src/monitor/TMonitorThriftServer.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/TMonitorThriftServer.o ${OBJECTDIR}/src/monitor/TMonitorThriftServer_nomain.o;\
 	fi
@@ -650,7 +688,7 @@ ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler_nomain.o: ${OBJECTDIR}/src
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler_nomain.o src/monitor/TStorageMonitorThriftHandler.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler_nomain.o src/monitor/TStorageMonitorThriftHandler.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler.o ${OBJECTDIR}/src/monitor/TStorageMonitorThriftHandler_nomain.o;\
 	fi
@@ -663,7 +701,7 @@ ${OBJECTDIR}/src/monitor/TStorageStatModule_nomain.o: ${OBJECTDIR}/src/monitor/T
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageStatModule_nomain.o src/monitor/TStorageStatModule.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/monitor/TStorageStatModule_nomain.o src/monitor/TStorageStatModule.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/monitor/TStorageStatModule.o ${OBJECTDIR}/src/monitor/TStorageStatModule_nomain.o;\
 	fi
@@ -676,7 +714,7 @@ ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService_nomain.o: ${OBJECTDIR}/thrift/gen
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService_nomain.o thrift/gen-cpp/MonitorReadService.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService_nomain.o thrift/gen-cpp/MonitorReadService.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService.o ${OBJECTDIR}/thrift/gen-cpp/MonitorReadService_nomain.o;\
 	fi
@@ -689,7 +727,7 @@ ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService_nomain.o: ${OBJECTDIR}/thrift/gen-cp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService_nomain.o thrift/gen-cpp/OpenBaseService.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService_nomain.o thrift/gen-cpp/OpenBaseService.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService.o ${OBJECTDIR}/thrift/gen-cpp/OpenBaseService_nomain.o;\
 	fi
@@ -702,7 +740,7 @@ ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService_nomain.o: ${OBJECTDIR}/thrift/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService_nomain.o thrift/gen-cpp/StorageMonitorService.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService_nomain.o thrift/gen-cpp/StorageMonitorService.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService.o ${OBJECTDIR}/thrift/gen-cpp/StorageMonitorService_nomain.o;\
 	fi
@@ -715,7 +753,7 @@ ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService_nomain.o: ${OBJECTDIR}/thrift
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService_nomain.o thrift/gen-cpp/TBackendManagerService.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService_nomain.o thrift/gen-cpp/TBackendManagerService.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService.o ${OBJECTDIR}/thrift/gen-cpp/TBackendManagerService_nomain.o;\
 	fi
@@ -728,7 +766,7 @@ ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase_nomain.o: ${OBJECTDIR}/thrift/gen-c
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase_nomain.o thrift/gen-cpp/TNodeServiceBase.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase_nomain.o thrift/gen-cpp/TNodeServiceBase.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase.o ${OBJECTDIR}/thrift/gen-cpp/TNodeServiceBase_nomain.o;\
 	fi
@@ -741,7 +779,7 @@ ${OBJECTDIR}/thrift/gen-cpp/TP2PService_nomain.o: ${OBJECTDIR}/thrift/gen-cpp/TP
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TP2PService_nomain.o thrift/gen-cpp/TP2PService.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/TP2PService_nomain.o thrift/gen-cpp/TP2PService.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/TP2PService.o ${OBJECTDIR}/thrift/gen-cpp/TP2PService_nomain.o;\
 	fi
@@ -754,7 +792,7 @@ ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants_nomain.o: ${OBJECTDIR}/thri
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants_nomain.o thrift/gen-cpp/backendmonitor_constants.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants_nomain.o thrift/gen-cpp/backendmonitor_constants.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants.o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_constants_nomain.o;\
 	fi
@@ -767,7 +805,7 @@ ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types_nomain.o: ${OBJECTDIR}/thrift/g
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types_nomain.o thrift/gen-cpp/backendmonitor_types.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types_nomain.o thrift/gen-cpp/backendmonitor_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types.o ${OBJECTDIR}/thrift/gen-cpp/backendmonitor_types_nomain.o;\
 	fi
@@ -780,7 +818,7 @@ ${OBJECTDIR}/thrift/gen-cpp/distributed_constants_nomain.o: ${OBJECTDIR}/thrift/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_constants_nomain.o thrift/gen-cpp/distributed_constants.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_constants_nomain.o thrift/gen-cpp/distributed_constants.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/distributed_constants.o ${OBJECTDIR}/thrift/gen-cpp/distributed_constants_nomain.o;\
 	fi
@@ -793,7 +831,7 @@ ${OBJECTDIR}/thrift/gen-cpp/distributed_types_nomain.o: ${OBJECTDIR}/thrift/gen-
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_types_nomain.o thrift/gen-cpp/distributed_types.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/distributed_types_nomain.o thrift/gen-cpp/distributed_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/distributed_types.o ${OBJECTDIR}/thrift/gen-cpp/distributed_types_nomain.o;\
 	fi
@@ -806,7 +844,7 @@ ${OBJECTDIR}/thrift/gen-cpp/monitor_constants_nomain.o: ${OBJECTDIR}/thrift/gen-
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_constants_nomain.o thrift/gen-cpp/monitor_constants.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_constants_nomain.o thrift/gen-cpp/monitor_constants.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/monitor_constants.o ${OBJECTDIR}/thrift/gen-cpp/monitor_constants_nomain.o;\
 	fi
@@ -819,7 +857,7 @@ ${OBJECTDIR}/thrift/gen-cpp/monitor_types_nomain.o: ${OBJECTDIR}/thrift/gen-cpp/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_types_nomain.o thrift/gen-cpp/monitor_types.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/monitor_types_nomain.o thrift/gen-cpp/monitor_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/monitor_types.o ${OBJECTDIR}/thrift/gen-cpp/monitor_types_nomain.o;\
 	fi
@@ -832,7 +870,7 @@ ${OBJECTDIR}/thrift/gen-cpp/openbase_constants_nomain.o: ${OBJECTDIR}/thrift/gen
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_constants_nomain.o thrift/gen-cpp/openbase_constants.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_constants_nomain.o thrift/gen-cpp/openbase_constants.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/openbase_constants.o ${OBJECTDIR}/thrift/gen-cpp/openbase_constants_nomain.o;\
 	fi
@@ -845,7 +883,7 @@ ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o: ${OBJECTDIR}/thrift/gen-cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -Isrc/libs/zookeeper -Isrc/libs -Isrc/libs/libstatgrab -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ilibs -Ithrift/gen-cpp -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o thrift/gen-cpp/openbase_types.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o thrift/gen-cpp/openbase_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/thrift/gen-cpp/openbase_types.o ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o;\
 	fi

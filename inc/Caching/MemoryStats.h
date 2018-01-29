@@ -32,47 +32,47 @@ public:
 
     template <class T>
     size_t getSize(const std::vector<T>& aItem)const{
-        size_t aKQ = sizeof(aItem);
+        size_t aResult = sizeof(aItem);
         size_t aSize = aItem.size();
         for (size_t aIndex = 0; aIndex< aSize; aIndex++)
-            aKQ += getSize(aItem[aIndex]);
-        return aKQ;
+            aResult += getSize(aItem[aIndex]);
+        return aResult;
     }
 
     size_t getSize(const std::vector<int32_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(int32_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(int32_t);
+        return aResult;
     }
 
     size_t getSize(const std::vector<uint32_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(uint32_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(uint32_t);
+        return aResult;
     }
     
     size_t getSize(const std::vector<int64_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(int64_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(int64_t);
+        return aResult;
     }
     
     size_t getSize(const std::vector<uint64_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(uint64_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(uint64_t);
+        return aResult;
     }
 
     size_t getSize(const std::vector<int8_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(int8_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(int8_t);
+        return aResult;
     }
 
     size_t getSize(const std::vector<uint8_t>& aItem)const{
-        size_t aKQ = sizeof(aItem);
-        aKQ += aItem.size() * sizeof(int8_t);
-        return aKQ;
+        size_t aResult = sizeof(aItem);
+        aResult += aItem.size() * sizeof(int8_t);
+        return aResult;
     }
 
     template <class T1, class T2>

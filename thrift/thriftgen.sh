@@ -1,5 +1,5 @@
 
-../../../contribs/ApacheThrift/thrift-0.10.0/compiler/cpp/thrift -gen cpp openbase.thrift
-../../../contribs/ApacheThrift/thrift-0.10.0/compiler/cpp/thrift -gen cpp monitor.thrift
-../../../contribs/ApacheThrift/thrift-0.10.0/compiler/cpp/thrift -gen cpp backendmonitor.thrift
-../../../contribs/ApacheThrift/thrift-0.10.0/compiler/cpp/thrift -gen cpp distributed.thrift
+../../../contribs/ApacheThrift/bin/thrift -gen cpp openbase.thrift
+../../../contribs/ApacheThrift/bin/thrift -gen cpp monitor.thrift
+../../../contribs/ApacheThrift/bin/thrift -gen cpp backendmonitor.thrift
+../../../contribs/ApacheThrift/bin/thrift -gen cpp distributed.thrift
