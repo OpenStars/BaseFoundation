@@ -40,7 +40,7 @@ void StatSubsystem::initialize(Application& app) {
         //Initialize libstatgrab ignoring initialization error
         sg_init(1);
 
-        std::thread collectThread(
+        std::thread* collectThread = new std::thread(
                 [this]() {
                     while (true) {
                         {
@@ -98,9 +98,6 @@ void StatSubsystem::initialize(Application& app) {
 
                 }
         ); // thread function 
-
-
-
 
         app.logger().information("Monitor Module started ...");
 
