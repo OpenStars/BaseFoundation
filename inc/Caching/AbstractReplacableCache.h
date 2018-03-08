@@ -32,7 +32,7 @@ class AbstractReplacableCache: public AbstractCache<_TKey, _TValue, _MemSizeGett
             ,_isEvicting(false)
             , _enableEvict(true)
             ,_runnable(*this, &AbstractReplacableCache::evictFunc)
-        {        
+        {
         }
         
         virtual ~AbstractReplacableCache()

@@ -12,9 +12,12 @@ using namespace Poco::Util;
 using namespace Poco;
 
 StatSubsystem::StatSubsystem() {
+    _enableRunning = true;
+    collectThread = NULL;
 }
 
 StatSubsystem::StatSubsystem(const StatSubsystem& orig) {
+    
 }
 
 StatSubsystem::~StatSubsystem() {
@@ -34,15 +37,16 @@ StatSubsystem& StatSubsystem::getInstance() {
 
 void StatSubsystem::initialize(Application& app) {
     try {
+        _enableRunning = true;
         app.logger().information("Monitor Module starting ...");
         _instance = this;
 
         //Initialize libstatgrab ignoring initialization error
         sg_init(1);
 
-        std::thread* collectThread = new std::thread(
+        collectThread = new std::thread(
                 [this]() {
-                    while (true) {
+                    while (_enableRunning) {
                         {
                             size_t entries;
 
@@ -94,6 +98,9 @@ void StatSubsystem::initialize(Application& app) {
                             sg_load_stats *load = sg_get_load_stats(NULL);
                             this->_sysloadLog.log((long long) 1000 * load->min1, (long long) 1000 * load->min5, (long long) 1000 * load->min15);
                         }
+                        
+                        Poco::Thread::sleep(1000);
+                        
                     }
 
                 }
@@ -109,7 +116,10 @@ void StatSubsystem::initialize(Application& app) {
 void StatSubsystem::uninitialize() {
     Application& app = Application::instance();
     try {
+        this->_enableRunning = false;
         app.logger().information("Stat module Server stopping ...");
+
+        collectThread ->join() ;
 
         app.logger().information("Stat module Server stopped ...");
 

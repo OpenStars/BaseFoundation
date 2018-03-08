@@ -314,9 +314,10 @@ namespace openstars {
             }
             
 
-            virtual int32_t _put( const void* inKeyData, const int& keyLen, const void* inData, const int& datalen) {
-                return -1;
-            }; // should be overridden
+            virtual int32_t _put( const void* inKeyData, const int& keyLen, const void* inData, const int& datalen) = 0;
+//            {
+//                return -1;
+//            }; // should be overridden
 
             virtual int32_t _multiPut(const KVMap& keyvals) {
                 KVMap::const_iterator aIt = keyvals.begin();

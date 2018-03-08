@@ -3,7 +3,7 @@
  * Author: trungthanh
  *
  * Created on October 2, 2012, 9:58 AM
- * Reduce copy on flushing to key-value abstraction 
+ * Reduce copying on flushing to key-value abstraction 
  * Use with ThriftObjectStorage
  */
 
@@ -66,6 +66,8 @@ class CachePersistent
     public:
         class data_visitor{
         public:
+            data_visitor(){}
+            virtual ~data_visitor(){}
             virtual bool visit(const TKey& key, TValue& value) = 0;
             virtual data_visitor* clone() { return NULL ;}
         };
@@ -82,13 +84,15 @@ class CachePersistent
          */
         void visit(const TKey& key, data_visitor* aVisistor);
 
-        /* Function: visitCache
+        /* 
+         * Function: visitCache
          * Purpose: visit item in Caching
          * return false if item is not in Caching
          */
         bool visitCache(const TKey& key, data_visitor* aVisistor);
 
-         /* Function: visitCacheOrWarm
+         /* 
+          * Function: visitCacheOrWarm
           * Purpose: visit item in Caching or warming Up the item
           * Flow: if (_enableWarmingUp==false) it call visitCache
           *         otherwise it visit Caching if it exist
@@ -353,12 +357,12 @@ class CachePersistent
 };
 
 CachePersistent_Tmpl
-CachePersistent_Clss::CachePersistent(typename CachePersistent_Clss::CacheType* Caching, typename CachePersistent_Clss::CacheType* secondCache, _ObjectStorage* Storage)
+CachePersistent_Clss::CachePersistent(typename CachePersistent_Clss::CacheType* masterCache, typename CachePersistent_Clss::CacheType* secondCache, _ObjectStorage* aStorage)
 :_savingRunner(*this, &CachePersistent_Clss::_savingThreadFunc )
 ,_warmingRunner(*this, &CachePersistent_Clss::_warmingThreadFunc )
-,_cache(Caching)
+,_cache(masterCache)
 ,_secondCache(secondCache) //
-,_storage(Storage)
+,_storage(aStorage)
 ,_dirtyKeys()
 ,_warmingKeys()
 ,_enable(true)
@@ -389,6 +393,7 @@ CachePersistent_Clss::CachePersistent(typename CachePersistent_Clss::CacheType* 
 
 CachePersistent_Tmpl
 void CachePersistent_Clss::visit(const _TKey& key, data_visitor* aVisistor){
+    //cout<<"debug LightCachePersistent::visit "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
     Poco::Stopwatch aWatch;
     aWatch.start();
     visit_manipulator manipulator(aVisistor, !this->_asyncFlush);
@@ -401,44 +406,61 @@ void CachePersistent_Clss::visit(const _TKey& key, data_visitor* aVisistor){
         pCache->manipulateCache(key, &manipulator);
     else
         return;
+    //cout<<"debug LightCachePersistent::visit2 "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
     if (!manipulator._visited){
+        //cout<<"debug LightCachePersistent::visit3 "<<key<<" "<<aVisistor<<" _evictProcessor: " <<_evictProcessor<<endl;
         TValue value;
         //lay cache da bi evicted tu lan truoc 
         if (this->_evictProcessor && _evictProcessor->tryPopEvicted(key, value))
         {
+            //cout<<"debug LightCachePersistent::visit3.1 "<<key<<" "<<aVisistor<<" _evictProcessor: " <<_evictProcessor<<endl;
             // load value
             pCache->add(key, value); // to make sure it is not overwrite hot object (may be warmed by another thread
 
+            //cout<<"debug LightCachePersistent::visit3.2 "<<key<<" "<<aVisistor<<" _evictProcessor: " <<_evictProcessor<<endl;
+            
             // visit again
             pCache->manipulateCache(key, &manipulator);
+            //cout<<"debug LightCachePersistent::visit3.3 "<<key<<" "<<aVisistor<<" _evictProcessor: " <<_evictProcessor<<endl;
                 
             aWatch.stop();
             if (_observer)
                 _observer->hitCache(aWatch.elapsed() , manipulator._changed );
             saveObject(key); // add back to dirty 
+            //cout<<"debug LightCachePersistent::visit3.4 "<<key<<" "<<aVisistor<<" _evictProcessor: " <<_evictProcessor<<endl;
             
         } // read from persistent storage
         else{        
         
+            //cout<<"debug LightCachePersistent::visit 4 "<<key<<" _storage: "<<_storage<<" _observer: " <<_observer<<endl;
             if (_observer)
                 _observer->missedCache(aWatch.elapsed() , false);
             aWatch.start();
+            ////cout<<"debug LightCachePersistent::visit 4.0 "<<key<<" _storage: "<<_storage<<" _observer: " <<_observer<<endl;
             if (_storage)
                 _storage->get(key, value);
+            //cout<<"debug LightCachePersistent::visit 4.1 "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
+            
             aWatch.stop();
             if (_observer)
                 _observer->hitPersistent(aWatch.elapsed() , false);
             // load value
+            //cout<<"debug LightCachePersistent::visit 4.2 "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
+            
             pCache->add(key, value); // to make sure it is not overwrite hot object (may be warmed by another thread
 
+            //cout<<"debug LightCachePersistent::visit 4.3 "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
             // visit again
             pCache->manipulateCache(key, &manipulator);
+            //cout<<"debug LightCachePersistent::visit 4.4 "<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
+
         }
     } else {
         aWatch.stop();
         if (_observer)
             _observer->hitCache(aWatch.elapsed() , manipulator._changed );
     }
+    //cout<<"debug LightCachePersistent::visit 5"<<key<<" "<<aVisistor<<" cache: " <<_cache<<endl;
     
     if (manipulator._changed ){
         if (this->_asyncFlush && _enableAsyncFlush)
@@ -598,10 +620,10 @@ void CachePersistent_Clss::setNumWarmingThread(int numThread)
 
 CachePersistent_Tmpl
 void CachePersistent_Clss::_savingThreadFunc(){
-    cout<<" saving thread func "<<endl;
+    //cout<<" saving thread func "<<endl;
     
     TKey key;
-    cout<<"_enableSavingThread:"<<_enableSavingThread<<endl;
+    //cout<<"_enableSavingThread:"<<_enableSavingThread<<endl;
     while (this->_enableSavingThread ){
 
         ThriftType value;
@@ -638,12 +660,12 @@ void CachePersistent_Clss::_savingThreadFunc(){
             this->_changeEvent.wait();
 
     }
-    cout <<" stop saving thread "<<endl;
+    //cout <<" stop saving thread "<<endl;
 }
 
 CachePersistent_Tmpl
 void CachePersistent_Clss::_warmingThreadFunc(){
-    cout<<" warming thread func "<<endl;
+    //cout<<" warming thread func "<<endl;
     
     while (this->_enableWarmingUp ){
         //this->_changeEvent.wait();
@@ -812,7 +834,7 @@ CachePersistent_Tmpl
 void CachePersistent_Clss::stopSaving(){
  
     _forceSavingStop = true;
-    cout<<"stopSaving begin"<<endl;
+    //cout<<"stopSaving begin"<<endl;
     _enableSavingThread = false;
     for (int aIndex = 0; aIndex < this->_numSavingThread ; aIndex ++)
     {
@@ -831,7 +853,7 @@ void CachePersistent_Clss::stopSaving(){
 	    }
 	}
     }
-    cout<<"stopSaving ok"<<endl;
+    //cout<<"stopSaving ok"<<endl;
     
 }
 

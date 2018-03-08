@@ -78,13 +78,15 @@ class CachePersistent
          */
         void visit(const TKey& key, data_visitor* aVisistor);
 
-        /* Function: visitCache
+        /* 
+         * Function: visitCache
          * Purpose: visit item in Caching
          * return false if item is not in Caching
          */
         bool visitCache(const TKey& key, data_visitor* aVisistor);
 
-         /* Function: visitCacheOrWarm
+         /* 
+          * Function: visitCacheOrWarm
           * Purpose: visit item in Caching or warming Up the item
           * Flow: if (_enableWarmingUp==false) it call visitCache
           *         otherwise it visit Caching if it exist
@@ -209,6 +211,7 @@ class CachePersistent
         bool popWarmingKey(TKey& key);
         void _savingThreadFunc();
         void _warmingThreadFunc();
+        
     protected:
         Poco::RunnableAdapter < ThisClass > _savingRunner;
         Poco::RunnableAdapter < ThisClass > _warmingRunner;

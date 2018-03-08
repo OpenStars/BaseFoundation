@@ -9,11 +9,12 @@
 #include "TNetSpeedLog.h"
 #include "Poco/Util/Subsystem.h"
 
+#include <thread>
+
 
 class StatSubsystem : public Poco::Util::Subsystem {
 public:
     StatSubsystem();
-    StatSubsystem(const StatSubsystem& orig);
     virtual ~StatSubsystem();
 
     virtual const char* name() const { return "StatModuleSubsystem";};
@@ -47,6 +48,8 @@ public:
     
     
 private:
+    StatSubsystem(const StatSubsystem& orig);
+    
     static StatSubsystem*    _instance;
     
     TCpuUsageLog _cpuLog;
@@ -58,6 +61,10 @@ private:
     TDiskSpeedLog _diskspeedLog;
     
     TNetSpeedLog _netspeedLog;
+    
+    volatile bool _enableRunning;
+    
+    std::thread* collectThread;
     
 };
 

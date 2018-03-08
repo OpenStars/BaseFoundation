@@ -25,10 +25,10 @@ public:
 
 	typedef _TType TType;
 
-	static int32_t Serialize(boost::shared_ptr<TMemoryBuffer> &memBuf, const TType&value) {
+	static int32_t Serialize(apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> &memBuf, const TType&value) {
 		try {
 			if (memBuf == 0)
-				memBuf = boost::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
+				memBuf = apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
 
 			_TProtocolType proto(memBuf);
 			//memBuf->resetBuffer();
@@ -39,7 +39,7 @@ public:
 		return 0;
 	}
 
-	static int32_t Deserialize(TType&value, const boost::shared_ptr<TMemoryBuffer> &memBuf) {
+	static int32_t Deserialize(TType&value, const apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> &memBuf) {
 		if (memBuf == 0)
 			return -1;
 
@@ -53,7 +53,7 @@ public:
 	}
 
 	static int32_t Serialize(std::string &strBuf, const TType&value) {
-		boost::shared_ptr<TMemoryBuffer > memBuf;
+		apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > memBuf;
 		Serialize(memBuf, value);
 		if (memBuf == 0)
 			return -1;
@@ -69,7 +69,7 @@ public:
 	}
 
 	static int32_t Deserialize(TType&value, const std::string &strBuf) {
-		boost::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) strBuf.data(), strBuf.size(), TMemoryBuffer::OBSERVE));
+		apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) strBuf.data(), strBuf.size(), TMemoryBuffer::OBSERVE));
 		return Deserialize(value, memBuf);
 	}
 

@@ -200,7 +200,12 @@ namespace openstars {
                     if (m_svrThreadCore && m_svrThreadCore->getServer()) {
                         m_svrThreadCore->getServer()->stop();
                     }
-                    m_svrThread = NULL;
+                    if (m_svrThread)
+                    {
+                        m_svrThread->join();
+                        m_svrThread = NULL;
+                        m_svrThreadCore = NULL;
+                    }
                 }
 
                 void reinitialize(Application& app) {

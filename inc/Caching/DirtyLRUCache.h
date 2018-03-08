@@ -829,7 +829,7 @@ void DirtyLRUCache_Clss::_unlinkLRU(const _TKey& key, size_t hashkey) {
 
 DirtyLRUCache_DeclareTmpl 
 void DirtyLRUCache_Clss::init() {
-    //calculate table size
+    //calculate table size   
     size_t aSize = 1;
     while (aSize < _tableSize)
         aSize = aSize<<1;
@@ -852,6 +852,7 @@ void DirtyLRUCache_Clss::init() {
     BaseLRUClass::_isEvicting = false;
     this->incMem(_data);
     this->_memSize += sizeof(*this);
+        
 
 }
 

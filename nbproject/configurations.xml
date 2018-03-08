@@ -60,6 +60,7 @@
       </logicalFolder>
       <logicalFolder name="Storage" displayName="Storage" projectFiles="true">
         <itemPath>inc/Storage/AbstractKVStorage.h</itemPath>
+        <itemPath>inc/Storage/AbstractStorageFactory.h</itemPath>
         <itemPath>inc/Storage/CachePersistent.h</itemPath>
         <itemPath>inc/Storage/CachePersistentBase.h</itemPath>
         <itemPath>inc/Storage/EvictProcessors.h</itemPath>
@@ -78,7 +79,6 @@
       <logicalFolder name="Util" displayName="Util" projectFiles="true">
         <itemPath>inc/Util/IDGenerator.h</itemPath>
       </logicalFolder>
-      <itemPath>inc/Storage/AbstractStorageFactory.h</itemPath>
       <itemPath>inc/Endpoint.h</itemPath>
       <itemPath>inc/EndpointManager.h</itemPath>
       <itemPath>inc/LiteEndpointManager.h</itemPath>
@@ -714,7 +714,6 @@
             <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
             <pElem>../../contribs/SpecialContribs/src/</pElem>
           </incDir>
-          <commandLine>-std=c++0x</commandLine>
           <preprocessorList>
             <Elem>BUILD_LIBSTATGRAB</Elem>
             <Elem>HAVE_CONFIG_H</Elem>
