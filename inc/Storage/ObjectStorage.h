@@ -98,7 +98,7 @@ public:
         return true;
     }
 
-    void setKVStorage(const Poco::SharedPtr<openstars::storage::AbstractKVStorage>& stg) {
+    void setKVStorage(const openstars::storage::AbstractKVStorage::Ptr& stg) {
         if (stg) {
             m_storage = stg;
             m_pstorage = m_storage.get();
@@ -109,7 +109,7 @@ public:
 
 
 protected:
-    Poco::SharedPtr<openstars::storage::AbstractKVStorage> m_storage;
+    openstars::storage::AbstractKVStorage::Ptr m_storage;
     openstars::storage::AbstractKVStorage* m_pstorage;
 
 };

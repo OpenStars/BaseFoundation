@@ -67,6 +67,7 @@
         <itemPath>inc/Storage/LightCachePersistent.h</itemPath>
         <itemPath>inc/Storage/MultiKVStorage.h</itemPath>
         <itemPath>inc/Storage/ObjectStorage.h</itemPath>
+        <itemPath>inc/Storage/SnappyKVStorage.h</itemPath>
         <itemPath>inc/StorageFactory.h</itemPath>
       </logicalFolder>
       <logicalFolder name="thriftutil" displayName="thriftutil" projectFiles="true">
@@ -153,6 +154,7 @@
       </logicalFolder>
       <logicalFolder name="Storage" displayName="Storage" projectFiles="true">
         <itemPath>src/Storage/MultiKVStorage.cpp</itemPath>
+        <itemPath>src/Storage/SnappyKVStorage.cpp</itemPath>
         <itemPath>src/Storage/StorageFactory.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="Util" displayName="Util" projectFiles="true">
@@ -221,6 +223,7 @@
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>inc</pElem>
             <pElem>../../contribs/LibEvent/include</pElem>
@@ -423,6 +426,8 @@
       </item>
       <item path="inc/Storage/ObjectStorage.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/Storage/SnappyKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
@@ -525,6 +530,8 @@
       <item path="src/SharedMemoryEx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/MultiKVStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/SnappyKVStorage.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -702,6 +709,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>inc</pElem>
             <pElem>../../contribs/LibEvent/include</pElem>
@@ -922,6 +930,8 @@
       </item>
       <item path="inc/Storage/ObjectStorage.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/Storage/SnappyKVStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
@@ -1024,6 +1034,8 @@
       <item path="src/SharedMemoryEx.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/MultiKVStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Storage/SnappyKVStorage.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>

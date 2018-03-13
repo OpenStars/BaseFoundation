@@ -6,7 +6,7 @@
  */
 
 #ifndef _ABSTRACTKVSTORAGE_H
-#define	_ABSTRACTKVSTORAGE_H
+#define _ABSTRACTKVSTORAGE_H
 
 #include "stdint.h"
 #include <iostream>
@@ -27,17 +27,18 @@
 namespace openstars {
     namespace storage {
 
- 
+
         //-----------------------------------------------------------------------------
         //AbstractCursor
 
         class AbstractCursor {
         public:
-            virtual ~AbstractCursor(){}
+
+            virtual ~AbstractCursor() {
+            }
             virtual bool next(std::string& aKey, std::string& aVal) = 0;
 
             virtual void close() = 0;
-
 
             template <class SimpleKeyType, class SimpleValType>
             bool next(SimpleKeyType& aKey, SimpleValType& aVal) {
@@ -52,7 +53,7 @@ namespace openstars {
                     ::memset((void*) &aKey, 0, sizeof (SimpleKeyType));
                     size_t aSize = sizeof (SimpleKeyType) > aSKey.length() ? aSKey.length() : sizeof (SimpleKeyType);
                     ::memcpy((void*) &aKey, (const void*) aSKey.data(), aSize);
-                    
+
                     aKey = Poco::ByteOrder::fromLittleEndian(aKey);
 
                     ::memset((void*) &aVal, 0, sizeof (SimpleValType));
@@ -77,7 +78,7 @@ namespace openstars {
                     ::memcpy((void*) &aKey, (const void*) aSKey.data(), aSize);
 
                     aKey = Poco::ByteOrder::fromLittleEndian(aKey);
-                    
+
                     //			aKey = *(SimpleKeyType*) (void*) aSKey.data();
                 }
                 return aRes;
@@ -119,15 +120,22 @@ namespace openstars {
             typedef std::map<KType, VType> KVMap;
             typedef std::vector< std::pair < KType, VType> > KVList;
         public:
-            
-            
-            
+
+
+
         public:
+
             virtual void compactData() {};
-			virtual bool open() {
-				return true;
-			}
-			virtual void close() {}
+
+            virtual void syncCompactData() {};            
+            
+            virtual bool open() {
+                return true;
+            }
+
+            virtual void close() {
+            }
+
             virtual bool isReadable() const {
                 return true;
             }
@@ -139,19 +147,16 @@ namespace openstars {
             virtual int32_t put(const KType &key, const char* data, uint32_t dataLength) {
                 return _put(key, data, dataLength);
             }
-            
-            virtual int32_t put(const void* inKeyData, 
-                const int& keyLen, const void* inData, const int& datalen) 
-            {
-                return _put( inKeyData, keyLen, inData, datalen);
+
+            virtual int32_t put(const void* inKeyData,
+                    const int& keyLen, const void* inData, const int& datalen) {
+                return _put(inKeyData, keyLen, inData, datalen);
             }; // should be overridden
-            
 
             virtual int32_t put(const KType &key, const VType &data) {
-                return _put( key, data);
+                return _put(key, data);
             }
 
-           
             virtual int32_t multiPut(const KVMap& keyvals) {
                 return _multiPut(keyvals);
             }
@@ -171,12 +176,10 @@ namespace openstars {
             virtual int32_t get(VType &_return, const KType &key) const {
                 return _get(_return, key);
             }
-            
-            virtual int32_t get(const void* inKeyData, const int& keyLen, void* outData, const int& datalen) const
-            {
+
+            virtual int32_t get(const void* inKeyData, const int& keyLen, void* outData, const int& datalen) const {
                 return _get(inKeyData, keyLen, outData, datalen);
             }
-            
 
             virtual int32_t multiGet(KVMap &_return, const KList &keys) const {
                 return _multiGet(_return, keys);
@@ -185,29 +188,27 @@ namespace openstars {
             virtual bool has(const KType &key) const {
                 return _has(key);
             }
-            
+
             /*
              * of date value of existing key, error if it is not existed
              */
-            virtual int32_t update(const KType &key, const VType &data)
-            {
+            virtual int32_t update(const KType &key, const VType &data) {
                 return 0;
             }
 
             /*
              * add new key-value pair, error if it is already existed
              */
-            virtual int32_t add(const KType &key, const VType &data)
-            {
+            virtual int32_t add(const KType &key, const VType &data) {
                 return 0;
             }
-            
-            
-            virtual void flush(){}
-	    
-	    virtual Poco::SharedPtr<AbstractCursor> iterate(){
-		return Poco::SharedPtr<AbstractCursor>() ; 
-	    }
+
+            virtual void flush() {
+            }
+
+            virtual Poco::SharedPtr<AbstractCursor> iterate() {
+                return Poco::SharedPtr<AbstractCursor>();
+            }
 
 
 #ifdef HAVE_OVERLOAD_TEMPLATE
@@ -216,7 +217,7 @@ namespace openstars {
             int32_t put(const SimpleKey& aKey, const SimpleVal& aVal) {
                 SimpleKey aLitlleKey = Poco::ByteOrder::toLittleEndian(aKey);
                 SimpleVal aLittleVal = Poco::ByteOrder::toLittleEndian(aVal);
-                
+
                 return _put((void*) & aLitlleKey, sizeof (SimpleKey), (void*) & aLittleVal, sizeof (SimpleVal));
             }
 
@@ -238,7 +239,7 @@ namespace openstars {
                 typename std::map<KType, SimpleVal>::const_iterator aIt = keysvals.begin();
                 for (; aIt != keysvals.end; aIt++) {
                     SimpleVal aVal = Poco::ByteOrder::toLittleEndian(aIt->second);
-                    aKvs[ aIt->first ] = std::string( (const char*) (&aVal), sizeof (SimpleVal) );
+                    aKvs[ aIt->first ] = std::string((const char*) (&aVal), sizeof (SimpleVal));
                 }
                 return _multiPut(aKvs);
             }
@@ -263,14 +264,14 @@ namespace openstars {
             template <class SimpleVal>
             int32_t put(const KType& aSKey, const SimpleVal& aVal) {
                 SimpleVal aLittleVal = Poco::ByteOrder::toLittleEndian(aVal);
-                int32_t aRes =_put((void*) aSKey.data(), aSKey.length(), (void*) & aLittleVal, sizeof (SimpleVal));
+                int32_t aRes = _put((void*) aSKey.data(), aSKey.length(), (void*) & aLittleVal, sizeof (SimpleVal));
                 return aRes;
             }
 
             template <class SimpleKey, class SimpleVal>
             int32_t get(SimpleVal& aVal, const SimpleKey& aKey) const {
                 SimpleKey aLittleKey = Poco::ByteOrder::toLittleEndian(aKey);
-                
+
                 int32_t aRes = _get((void*) & aLittleKey, sizeof (SimpleKey), (void*) & aVal, sizeof (SimpleVal));
                 aVal = Poco::ByteOrder::fromLittleEndian(aVal);
                 return aRes;
@@ -282,7 +283,7 @@ namespace openstars {
 
                 KType aSKey((char*) (void*) & aLittleKey, sizeof (SimpleKey));
 
-                int32_t aRes =_get(aSVal, aSKey); // string - string
+                int32_t aRes = _get(aSVal, aSKey); // string - string
                 return aRes;
             }
 
@@ -306,18 +307,16 @@ namespace openstars {
             // KV Storage
 
             virtual int32_t _put(const KType &key, const char* data, uint32_t dataLength) {
-                return _put( (void*) key.data(), key.length(), data, dataLength);
+                return _put((void*) key.data(), key.length(), data, dataLength);
             }
 
-            virtual int32_t _put(const KType &key, const VType &data) {
-                return _put( (void*) key.data(), key.length(), data.data(), data.length());
+            virtual int32_t _put(const KType &key, const VType &data) 
+            {
+                return _put((void*) key.data(), key.length(), data.data(), data.length());
             }
-            
 
-            virtual int32_t _put( const void* inKeyData, const int& keyLen, const void* inData, const int& datalen) = 0;
-//            {
-//                return -1;
-//            }; // should be overridden
+
+            virtual int32_t _put(const void* inKeyData, const int& keyLen, const void* inData, const int& datalen) = 0;
 
             virtual int32_t _multiPut(const KVMap& keyvals) {
                 KVMap::const_iterator aIt = keyvals.begin();
@@ -338,20 +337,19 @@ namespace openstars {
             } // should override for some remote KVStorage
 
             virtual int32_t _remove(const KType &key) {
-                return _remove( (void*) key.data(), key.length());
+                return _remove((void*) key.data(), key.length());
             }
 
             virtual int32_t _remove(void* aKey, int aKeyLen) {
                 return -1;
             }; // Must be overriden
 
-
-            virtual int32_t _multiRemove( const KList & keys) {
+            virtual int32_t _multiRemove(const KList & keys) {
                 KList::const_iterator aIt = keys.begin();
                 KList::const_iterator aEndIt = keys.end();
                 int aRes = 0;
                 for (; aIt != aEndIt; aIt++)
-                    aRes += _remove( *aIt);
+                    aRes += _remove(*aIt);
                 return aRes;
             }
 
@@ -412,5 +410,5 @@ namespace openstars {
 
 
 
-#endif	/* _ABSTRACTKVSTORAGE_H */
+#endif /* _ABSTRACTKVSTORAGE_H */
 

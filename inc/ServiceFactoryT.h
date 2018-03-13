@@ -16,6 +16,7 @@
 #include "Storage/MultiKVStorage.h"
 #include "Storage/AbstractKVStorage.h"
 #include "Storage/KVStorageFactory.h"
+#include "Storage/SnappyKVStorage.h"
 #include "Storage/EvictProcessors.h"
 #include "monitor/TBackendLog.h"
 #include "PocoEx/NetUtil.h"
@@ -23,6 +24,7 @@
 #include <iostream>
 
 #include "monitor/ServiceStatFetcher.h"
+#include "Storage/SnappyKVStorage.h"
 
 
 
@@ -114,6 +116,7 @@ public:
     static std::string _zkScheme;
     static bool smartSaving;
     static int smartSavingThreshold;
+    static bool supportSnappyCompression;
     
 };
 
@@ -172,6 +175,8 @@ bool service_factory_clss::smartSaving = false;
 service_factory_tmpl
 int service_factory_clss::smartSavingThreshold = 20000;
 
+service_factory_tmpl
+bool service_factory_clss::supportSnappyCompression = false;
 
 service_factory_tmpl
 void service_factory_clss::init(Poco::Util::Application& app
@@ -235,6 +240,9 @@ void service_factory_clss::init(Poco::Util::Application& app
         _enableSafeAsyncWrite = app.config().getInt("sns.storage.safe_async_visit", 0);  
     
     std::cout<<"_enableAsyncVisist:"<<_enableAsyncVisist<<" _enableSafeAsyncWrite:" <<_enableSafeAsyncWrite<<std::endl;
+    
+    supportSnappyCompression = app.config().getBool("sns.storage.snappykv.enable",false);
+    std::cout<<"supportSnappyCompression :" << (supportSnappyCompression? "true": "false")<<std::endl;
     //////
     
     if (_savingThread == 1)
@@ -246,21 +254,21 @@ void service_factory_clss::init(Poco::Util::Application& app
     
     initStorages(app, configKeyStorages);
 
-    const std::string aReadStorageNames = app.config().getString(configKeyReadDataStorage, "");
-    Poco::StringTokenizer aReadTkn(aReadStorageNames, ", ;");
-    for (size_t aIndex = 0; aIndex < aReadTkn.count(); aIndex++) {
-        app.logger().information("Enable Read to " + aReadTkn[aIndex]);
-        getKVStorage()->enableStorage(aReadTkn[aIndex], true, openstars::storage::ERead);
-
-    }
-
-    const std::string aWriteStorageNames = app.config().getString(configKeyWriteDataStorage, "");
-    Poco::StringTokenizer aWriteTkn(aWriteStorageNames, ", ;");
-    for (size_t aIndex = 0; aIndex < aWriteTkn.count(); aIndex++) {
-        app.logger().information("Enable Write to " + aWriteTkn[aIndex]);
-        getKVStorage()->enableStorage(aWriteTkn[aIndex], true, openstars::storage::EWrite);
-
-    }
+//    const std::string aReadStorageNames = app.config().getString(configKeyReadDataStorage, "");
+//    Poco::StringTokenizer aReadTkn(aReadStorageNames, ", ;");
+//    for (size_t aIndex = 0; aIndex < aReadTkn.count(); aIndex++) {
+//        app.logger().information("Enable Read to " + aReadTkn[aIndex]);
+//        getKVStorage()->enableStorage(aReadTkn[aIndex], true, openstars::storage::ERead);
+//
+//    }
+//
+//    const std::string aWriteStorageNames = app.config().getString(configKeyWriteDataStorage, "");
+//    Poco::StringTokenizer aWriteTkn(aWriteStorageNames, ", ;");
+//    for (size_t aIndex = 0; aIndex < aWriteTkn.count(); aIndex++) {
+//        app.logger().information("Enable Write to " + aWriteTkn[aIndex]);
+//        getKVStorage()->enableStorage(aWriteTkn[aIndex], true, openstars::storage::EWrite);
+//
+//    }
     ///////zookeeper options
     if (_zkServers.length() == 0)
         _zkServers  =  app.config().getString("sns.service.zkservers", "127.0.0.1:2181");
@@ -305,7 +313,14 @@ service_factory_tmpl
 Poco::SharedPtr<ObjectStgType> service_factory_clss::getBEStorage() {
     static Poco::SharedPtr<ObjectStgType> aBEStg;
     if (!aBEStg) {
-        aBEStg = new ObjectStgType(service_factory_clss::getKVStorage());
+        if (supportSnappyCompression)
+        {
+            aBEStg = new ObjectStgType(
+                    new openstars::storage::SnappyKVStorage(service_factory_clss::getKVStorage() )
+                    );
+        }
+        else
+            aBEStg = new ObjectStgType(service_factory_clss::getKVStorage());
     }
     return aBEStg;
 }

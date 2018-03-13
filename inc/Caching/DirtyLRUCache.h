@@ -253,12 +253,6 @@ protected:
 		return NULL;               
                 (*aNode)->setDirty(true);
                 return *aNode;
-//                listNode* removed = *aNode;
-//		listNode* dirty= new dirtyNode(removed);
-//		dirty->next = removed->next;
-//                *aNode = dirty;//removed->next;
-//                delete removed;
-//                return dirty;
             }
             return NULL;            
 		
@@ -273,12 +267,6 @@ protected:
 		return NULL;
                 (*aNode)->setDirty(false);
                 return *aNode;                
-//                listNode* removed = *aNode;
-//		listNode* dirty= new listNode(removed);
-//		dirty->next = removed->next;
-//                *aNode = dirty;//removed->next;
-//                delete removed;
-//                return dirty;
             }
             return NULL;            
 		
@@ -502,9 +490,6 @@ protected:
     }
     
         
-//    TLRUValue* _getLruValueInBucket(const TKey& key, TBucket& bucket) {
-//        return bucket.getValuePtr(key);
-//    }
 
     bool _removeFromBucket(const TKey& key, TBucket& bucket) {
         if (bucket.remove(key) )
