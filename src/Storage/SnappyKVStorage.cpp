@@ -34,12 +34,8 @@ int32_t SnappyKVStorage::_put(const void* inKeyData, const int& keyLen,
     std::string compressedData;
     snappy::Compress((const char*)inData, datalen, &compressedData);
     std::string aKey((const char*)inKeyData, keyLen);
-    
-    //only put smaller data to backend
-    if (compressedData.length() < datalen)
-        return _kv->put(aKey, compressedData);
-    else 
-        return _kv->put(inKeyData, keyLen, inData, datalen);
+
+    return _kv->put(aKey, compressedData);
 }
 
 int32_t SnappyKVStorage::_get(VType &_return, const KType &key) const

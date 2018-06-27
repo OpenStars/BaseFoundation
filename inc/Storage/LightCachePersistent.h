@@ -28,7 +28,7 @@
 
 #include <Caching/AbstractCache.h>
 #include <Storage/ObjectStorage.h>
-
+#include <functional>
 
 
 
@@ -72,6 +72,22 @@ class CachePersistent
             virtual data_visitor* clone() { return NULL ;}
         };
         
+        typedef  std::function <bool (const TKey&, TValue&) > visitfunc;
+        class func_visitor:public data_visitor{
+        public:
+            func_visitor( visitfunc aFunc ):f(aFunc) {}
+            bool visit(const TKey& key, TValue& value) {
+                return f(key, value);
+            }
+            
+            visitfunc f;
+                    
+        };
+        
+        void visit(const TKey& key, visitfunc f){
+            func_visitor aVisitor(f);
+            visit(key, &aVisitor);
+        }
       
     public:
         

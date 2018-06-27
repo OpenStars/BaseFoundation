@@ -22,6 +22,7 @@
 #include <map>
 
 namespace Util{
+    
 class AbstractIDGenerator {
 public:
     virtual ~AbstractIDGenerator(){}

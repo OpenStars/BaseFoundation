@@ -125,9 +125,11 @@ namespace openstars {
 
         public:
 
-            virtual void compactData() {};
+            virtual void compactData() {}
 
-            virtual void syncCompactData() {};            
+            virtual void syncCompactData() {}
+            
+            virtual void compactDataByThreshold() {}
             
             virtual bool open() {
                 return true;

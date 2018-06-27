@@ -23,6 +23,8 @@ public:
     virtual ~TServiceThriftHandlerBaseT(){};
    
     typedef openstars::base::transport::TThriftServer<TServiceHandlerBaseType , TServiceProcessorType, TProtocolFactoryType > TServiceThriftServer;
+    typedef openstars::base::transport::TThriftServer<TServiceHandlerBaseType , TServiceProcessorType, apache::thrift::protocol::TCompactProtocolFactory > TCompactServiceThriftServer;
+    typedef openstars::base::transport::TThriftServer<TServiceHandlerBaseType , TServiceProcessorType, apache::thrift::protocol::TBinaryProtocolFactory > TBinaryServiceThriftServer;
     
 public:
 
