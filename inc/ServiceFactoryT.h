@@ -291,9 +291,9 @@ void service_factory_clss::init(Poco::Util::Application& app
     
     smartSavingThreshold = app.config().getInt("sns.service.smartsaving.threshold", 20000);
     
-    _enableEtcdServer = app.config().getBool("sns.service.enableetcdserver",false);
+    _enableEtcdServer = app.config().getBool("sns.service.useetcd",false);
     if(_enableEtcdServer==true){
-        _etcdServer = app.config().getString("sns.service.etcdserver","http://127.0.0.1:2379");
+        _etcdServer = app.config().getString("sns.service.etcdserver","http://127.0.0.1:2300");
         _etcdPath = app.config().getString("sns.service.etcdpath","/etcdbackendservice/noservices");
     }
     
