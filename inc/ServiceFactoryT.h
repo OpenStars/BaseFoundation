@@ -123,6 +123,15 @@ public:
 };
 
 service_factory_tmpl
+bool service_factory_clss :: _enableEtcdServer =false;
+//
+service_factory_tmpl
+std::string service_factory_clss :: _etcdServer ="127.0.0.1";
+
+service_factory_tmpl
+std::string service_factory_clss :: _etcdPath="nopath";
+
+service_factory_tmpl
 int service_factory_clss ::_svrPort = 0;
 
 service_factory_tmpl
@@ -171,14 +180,6 @@ std::string service_factory_clss:: _zkRegPath;
 service_factory_tmpl
 std::string service_factory_clss:: _zkScheme;
 
-service_factory_tmpl
-std::string service_factory_clss:: _etcdServer;
-service_factory_tmpl
-std::string service_factory_clss:: _enableEtcdServer=false;
-service_factory_tmpl
-std::string service_factory_clss:: _enablezkServers = false;
-service_factory_tmpl
-std::string service_factory_clss:: _etcdPath;
 service_factory_tmpl
 bool service_factory_clss::smartSaving = false;
 

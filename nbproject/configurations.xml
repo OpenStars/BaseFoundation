@@ -727,8 +727,8 @@
             <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
             <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
             <pElem>../../contribs/SpecialContribs/src/</pElem>
-            <pElem>../../contribs/Rest/include</pElem>
             <pElem>../../contribs/EtcdClientApi</pElem>
+            <pElem>/usr/local/include/cpprest</pElem>
           </incDir>
           <preprocessorList>
             <Elem>BUILD_LIBSTATGRAB</Elem>

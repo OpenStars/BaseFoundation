@@ -19,6 +19,10 @@
         </group>
         <group name="BigSetKV_v2"/>
         <group name="hcore2017"/>
-        <group/>
+        <group>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/EtcdRegister.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/src/EtcdRegister.cpp</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/include/ServiceFactoryT.h</file>
+        </group>
     </open-files>
 </project-private>
