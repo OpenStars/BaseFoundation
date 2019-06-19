@@ -70,6 +70,13 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceInfo& aService)
     }
    
 }
+
+void EtcdRegister::registerAll()
+{
+    for(size_t i = 0 ;i< _totalServices.size();i++)
+        _totalServices[i].added = this->addUsingCurrentSession(_totalServices[i]);
+}
+
 void EtcdRegister::start()
 {
     if(_started) return;
