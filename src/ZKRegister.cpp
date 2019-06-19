@@ -215,6 +215,7 @@ bool ZKRegister::removeUsingCurrentSession(const ServiceInfo& aService)
         Poco::Path regPath(aService.path);
         regPath.append(svr_name);
 
+        
         return _zkClient->deleteNode(regPath.toString());
     } 
     catch(...)

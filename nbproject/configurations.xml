@@ -82,6 +82,7 @@
       </logicalFolder>
       <itemPath>inc/Endpoint.h</itemPath>
       <itemPath>inc/EndpointManager.h</itemPath>
+      <itemPath>inc/EtcdRegister.h</itemPath>
       <itemPath>inc/LiteEndpointManager.h</itemPath>
       <itemPath>inc/NQueueCenterWorker.h</itemPath>
       <itemPath>inc/OpenBaseHandler.h</itemPath>
@@ -162,6 +163,7 @@
       </logicalFolder>
       <itemPath>src/Endpoint.cpp</itemPath>
       <itemPath>src/EndpointManager.cpp</itemPath>
+      <itemPath>src/EtcdRegister.cpp</itemPath>
       <itemPath>src/LiteEndpointManager.cpp</itemPath>
       <itemPath>src/Caching/MemoryStats.cpp</itemPath>
       <itemPath>src/NetUtil.cpp</itemPath>
@@ -377,6 +379,8 @@
       </item>
       <item path="inc/EndpointManager.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/EtcdRegister.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Hashing/CastingHasher.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Hashing/DefaultHasher.h" ex="false" tool="3" flavor2="0">
@@ -514,6 +518,8 @@
       <item path="src/Endpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EtcdRegister.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Hashing/CastingHasher.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -721,6 +727,8 @@
             <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
             <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
             <pElem>../../contribs/SpecialContribs/src/</pElem>
+            <pElem>../../contribs/Rest/include</pElem>
+            <pElem>../../contribs/EtcdClientApi</pElem>
           </incDir>
           <preprocessorList>
             <Elem>BUILD_LIBSTATGRAB</Elem>
@@ -881,6 +889,8 @@
       </item>
       <item path="inc/EndpointManager.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/EtcdRegister.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Hashing/CastingHasher.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Hashing/DefaultHasher.h" ex="false" tool="3" flavor2="0">
@@ -1018,6 +1028,8 @@
       <item path="src/Endpoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EndpointManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EtcdRegister.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Hashing/CastingHasher.cpp" ex="false" tool="1" flavor2="0">
       </item>

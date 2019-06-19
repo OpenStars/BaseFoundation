@@ -49,7 +49,6 @@ public:
         ,const std::string& configKeyWriteDataStorage = "sns.storage.write"
 
         ,const std::string& configKeyServiceName = "sns.service.name"    
-    
     );
 
     static Poco::SharedPtr<CacheType> getCache();
@@ -96,7 +95,9 @@ public:
     static int _workerCount;
     static int _savingThread;
     static int _warmingThread;
-
+    static std::string _etcdServer;
+    static bool _enableEtcdServer;
+    static std::string _etcdPath;
     static std::string _cacheOption;
     static std::string _secondCacheOption;
     
@@ -112,6 +113,7 @@ public:
     
    
     static std::string _zkServers;
+    static bool _enablezkServers;
     static std::string _zkRegPath;
     static std::string _zkScheme;
     static bool smartSaving;
@@ -169,6 +171,14 @@ std::string service_factory_clss:: _zkRegPath;
 service_factory_tmpl
 std::string service_factory_clss:: _zkScheme;
 
+service_factory_tmpl
+std::string service_factory_clss:: _etcdServer;
+service_factory_tmpl
+std::string service_factory_clss:: _enableEtcdServer=false;
+service_factory_tmpl
+std::string service_factory_clss:: _enablezkServers = false;
+service_factory_tmpl
+std::string service_factory_clss:: _etcdPath;
 service_factory_tmpl
 bool service_factory_clss::smartSaving = false;
 
@@ -281,6 +291,13 @@ void service_factory_clss::init(Poco::Util::Application& app
     
     smartSavingThreshold = app.config().getInt("sns.service.smartsaving.threshold", 20000);
     
+    _enableEtcdServer = app.config().getBool("sns.service.enableetcdserver",false);
+    if(_enableEtcdServer==true){
+        _etcdServer = app.config().getString("sns.service.etcdserver","http://127.0.0.1:2379");
+        _etcdPath = app.config().getString("sns.service.etcdpath","/etcdbackendservice/noservices");
+    }
+    
+    
 }
 
 service_factory_tmpl
@@ -362,6 +379,7 @@ Poco::SharedPtr<ModelType> service_factory_clss::getModel() {
     if (!aModel) {
         aModel = new ModelType(getStorage());
     }
+   
     return aModel;
 }
 
