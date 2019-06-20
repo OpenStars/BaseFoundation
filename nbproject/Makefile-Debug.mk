@@ -44,7 +44,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Distributed/RepBackendManager.o \
 	${OBJECTDIR}/src/Endpoint.o \
 	${OBJECTDIR}/src/EndpointManager.o \
-	${OBJECTDIR}/src/EtcdRegister.o \
 	${OBJECTDIR}/src/Hashing/CastingHasher.o \
 	${OBJECTDIR}/src/Hashing/DefaultHasher.o \
 	${OBJECTDIR}/src/Hashing/MurmurHasher.o \
@@ -163,11 +162,6 @@ ${OBJECTDIR}/src/EndpointManager.o: src/EndpointManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager.o src/EndpointManager.cpp
-
-${OBJECTDIR}/src/EtcdRegister.o: src/EtcdRegister.cpp
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EtcdRegister.o src/EtcdRegister.cpp
 
 ${OBJECTDIR}/src/Hashing/CastingHasher.o: src/Hashing/CastingHasher.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Hashing
@@ -481,19 +475,6 @@ ${OBJECTDIR}/src/EndpointManager_nomain.o: ${OBJECTDIR}/src/EndpointManager.o sr
 	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EndpointManager_nomain.o src/EndpointManager.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EndpointManager.o ${OBJECTDIR}/src/EndpointManager_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/EtcdRegister_nomain.o: ${OBJECTDIR}/src/EtcdRegister.o src/EtcdRegister.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/EtcdRegister.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EtcdRegister_nomain.o src/EtcdRegister.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/EtcdRegister.o ${OBJECTDIR}/src/EtcdRegister_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Hashing/CastingHasher_nomain.o: ${OBJECTDIR}/src/Hashing/CastingHasher.o src/Hashing/CastingHasher.cpp 
