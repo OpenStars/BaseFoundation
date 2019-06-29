@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <set>
+#include <pplx/pplxtasks.h>
 using namespace std;
 
 EtcdRegister::EtcdRegister(const std::string& aEtcdHosts,const std::string& aEtcdTotalHostsKey) 
@@ -41,7 +42,9 @@ EtcdRegister::~EtcdRegister() {
 
 void EtcdRegister::addService(const std::string& path, const std::string& host, const int port,const std::string& schema)
 {
+  
     _totalServices.push_back(ServiceEtcdInfo(path,host,port,schema));
+ 
     if(!_started)
     {
         return;
@@ -56,12 +59,26 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
 {
     try
     {
-        const std::string key = _etcdTotalHostsKey +"/"+aService.path + "/" + aService.schema;
-        const std::string value = Poco::format("%s:%d",aService.host,aService.port);
-        std::cout<<"Add service key : " <<key <<" value : "<<value <<std::endl;
+       
+        Poco::URI uri;
+        uri.setScheme(aService.schema);
+        uri.setHost(aService.host);
+        uri.setPort(aService.port);
+        
+        
+        std::string svr_name = Poco::format("%s:%s:%d",aService.schema,aService.host,aService.port);
+
+        Poco::Path regPath(aService.path);
+        regPath.append(svr_name);
+        
+        const std::string key = regPath.toString();
+        const std::string value = uri.toString();
+        std::cout<<"Add service key : "<< key << " value : "<<value<<std::endl;
+           
         etcd::Response res = _etcdClient->set(key,value).get();
         if(res.error_code() == 0) return true;
         else return false;
+        return true;
     }
     catch(...)
     {
@@ -79,6 +96,7 @@ void EtcdRegister::registerAll()
 void EtcdRegister::start()
 {
     if(_started) return;
+
     this->initConnection();
     registerAll();
     _started = true;
@@ -100,6 +118,8 @@ void EtcdRegister::stop()
 
 void EtcdRegister::initConnection()
 {
+     
+ 
     if(_etcdTotalHosts.length()==0) _etcdTotalHosts = _etcdHosts;
     if(_etcdTotalHosts.length()==0) return;
    
@@ -118,11 +138,29 @@ void EtcdRegister::unRegisterAll()
 
 bool EtcdRegister::removeUsingCurrentSession(const ServiceEtcdInfo& aService)
 {
-    const std::string key = this->_etcdTotalHostsKey + "/" + aService.path + "/" +aService.schema;
-    const std::string value = Poco::format("%s:%d",aService.host,aService.port);
-    etcd::Response res = _etcdClient->rmdir(key).get();
-    if(res.error_code()==0) return true;
-    return false;
+    try{
+        Poco::URI uri;
+        uri.setScheme(aService.schema);
+        uri.setHost(aService.host);
+        uri.setPort(aService.port);
+        std::string svr_name = Poco::format("%s:%s:%d", aService.schema, aService.host, aService.port);
+
+        Poco::Path regPath(aService.path);
+        regPath.append(svr_name);
+        const std::string key = regPath.toString();
+       
+        etcd::Response res = _etcdClient->rm(key).get();
+        if(res.error_code() == 0) return true;
+        else return false;
+    }
+    catch(...){
+        return false;
+    }
 }
 
-
+void EtcdRegister::setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey  )
+{
+    
+   this-> _etcdHosts = aEtcdHosts;
+    _etcdTotalHostsKey = aEtcdTotalHostsKey;
+}

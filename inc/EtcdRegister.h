@@ -22,6 +22,7 @@
 #include "Poco/ActiveMethod.h"
 #include "Poco/Event.h"
 
+
 #include<list>
 #include<map>
 #include <memory>
@@ -71,14 +72,8 @@ struct ServiceEtcdInfo {
 
 class EtcdRegister {
 public:
-    EtcdRegister(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/etcdconfig/farm/totalhosts") );
-    void setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/etcdconfig/farm/totalhosts") )
-    {
-        _etcdHosts = aEtcdHosts;
-//      aEtcdHosts  std::cout<<"etcdtotalhostkey : "<<aEtcdTotalHostsKey<<std::endl;
-        _etcdTotalHosts= aEtcdTotalHostsKey;
-        _etcdTotalHostsKey = aEtcdTotalHostsKey;
-    }
+    EtcdRegister(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/zookeeper/farm/totalhosts") );
+    void setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/zookeeper/farm/totalhosts") );
     virtual ~EtcdRegister();
 private:
     EtcdRegister(const EtcdRegister& orig);
