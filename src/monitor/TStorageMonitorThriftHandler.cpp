@@ -128,18 +128,18 @@ void TStorageMonitorThriftHandler::closeStorage(const std::string& stgName)
     }
 }
 
-void TStorageMonitorThriftHandler::openStorage(const std::string& stgCreateOption)
-{
-    if (_storage)
-    {
-        //openstars::storage::KVStorageFactory aFactory;
-//        std::string aName;
-//        int rwOption = 0;
-//        openstars::storage::AbstractKVStorage* aStg = aFactory.createStorage(stgCreateOption, aName, rwOption);
-//        if (aStg){
-//            _storage->removeStorage(aName);
-//            _storage->addStorage(aName, aStg);
-//            _storage->enableStorage(aName, true, openstars::storage::TOperations(rwOption) );
-//        }
-    } 
-} 
+//void TStorageMonitorThriftHandler::openStorage(const std::string& stgCreateOption)
+//{
+//    if (_storage)
+//    {
+////        openstars::storage::KVStorageFactory aFactory;
+////        std::string aName;
+////        int rwOption = 0;
+////        openstars::storage::AbstractKVStorage* aStg = aFactory.createStorage(stgCreateOption, aName, rwOption);
+////        if (aStg){
+////            _storage->removeStorage(aName);
+////            _storage->addStorage(aName, aStg);
+////            _storage->enableStorage(aName, true, openstars::storage::TOperations(rwOption) );
+////        }
+//    } 
+//} 
