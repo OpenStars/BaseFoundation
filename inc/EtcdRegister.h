@@ -25,6 +25,7 @@
 #include<list>
 #include<map>
 #include <memory>
+#include <iostream>
 
 namespace etcd {
     class Client;
@@ -42,18 +43,20 @@ public:
     
 };
 
-struct ServiceInfo {
-    ServiceInfo()
+struct ServiceEtcdInfo {
+    ServiceEtcdInfo()
     :path()
     ,host()
     ,port(0)
+    ,schema()
     ,added(false)
     {
     }
-    ServiceInfo(const std::string& aPath,const std::string& aHost,const int aPort)
+    ServiceEtcdInfo(const std::string& aPath,const std::string& aHost,const int aPort,const std::string& aSchema)
     :path(aPath)
     ,host(aHost)
     ,port(aPort)
+    ,schema(aSchema)
     ,added(false)
     {
         
@@ -61,6 +64,8 @@ struct ServiceInfo {
     std::string path;
     std::string host;
     int port;
+    std::string schema;
+   
     bool added;
 };
 
@@ -70,22 +75,24 @@ public:
     void setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/etcdconfig/farm/totalhosts") )
     {
         _etcdHosts = aEtcdHosts;
+//      aEtcdHosts  std::cout<<"etcdtotalhostkey : "<<aEtcdTotalHostsKey<<std::endl;
         _etcdTotalHosts= aEtcdTotalHostsKey;
+        _etcdTotalHostsKey = aEtcdTotalHostsKey;
     }
     virtual ~EtcdRegister();
 private:
     EtcdRegister(const EtcdRegister& orig);
     
 public:
-    void addService(const std::string& path, const std::string& host, const int port);
+    void addService(const std::string& path, const std::string& host, const int port,const std::string& schema ="dummy");
     void start();
     void stop();
 protected:
     void initConnection();
     void registerAll();
     void unRegisterAll();
-    bool addUsingCurrentSession(const ServiceInfo& aService);
-    bool removeUsingCurrentSession(const ServiceInfo& aService);
+    bool addUsingCurrentSession(const ServiceEtcdInfo& aService);
+    bool removeUsingCurrentSession(const ServiceEtcdInfo& aService);
     void mergeEtcdFarm();
 private:
     bool _started;
@@ -96,7 +103,7 @@ private:
     
     // key in etcd farm that store information about whole farm
     std::string _etcdTotalHostsKey; 
-    std::vector<ServiceInfo> _totalServices;
+    std::vector<ServiceEtcdInfo> _totalServices;
     
     EtcdAdapterPtr _etcdClient;
     int _failedCount;
