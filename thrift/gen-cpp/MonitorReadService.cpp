@@ -10,6 +10,7 @@ namespace openstars { namespace base { namespace monitor {
 
 
 MonitorReadService_getCurrentStat_args::~MonitorReadService_getCurrentStat_args() throw() {
+    
 }
 
 

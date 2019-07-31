@@ -19,6 +19,15 @@
         </group>
         <group name="BigSetKV_v2"/>
         <group name="hcore2017"/>
-        <group/>
+        <group>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/EtcdRegister.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/ZKRegister.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/src/EtcdRegister.cpp</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/include/Storage/CachePersistent.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/EndpointManager.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/thrift/monitor.thrift</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/ServiceFactoryT.h</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/corelibs/BaseFoundation/inc/Util/SpinLock.h</file>
+        </group>
     </open-files>
 </project-private>

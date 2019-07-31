@@ -57,6 +57,7 @@ public:
     
     void setDefaultEndpoint(const Endpoint& aEndpoint);
     
+    
 protected:    
     void doLoadEndpoint(bool reconnect = false);
     

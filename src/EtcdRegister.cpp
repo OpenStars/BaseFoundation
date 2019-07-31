@@ -82,6 +82,7 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
     }
     catch(...)
     {
+        std::cout <<"khong ket noi duoc server"<<std::endl;
         return false;
     }
    
@@ -150,8 +151,16 @@ bool EtcdRegister::removeUsingCurrentSession(const ServiceEtcdInfo& aService)
         const std::string key = regPath.toString();
        
         etcd::Response res = _etcdClient->rm(key).get();
-        if(res.error_code() == 0) return true;
-        else return false;
+        if(res.error_code() == 0)
+        {
+            std::cout<<"Del key: "<<key<<"success"<<std::endl;
+            return true;
+        }
+        else
+        {
+            std::cout<<"Del key: "<<key<<"failed"<<std::endl;
+            return false;
+        }
     }
     catch(...){
         return false;

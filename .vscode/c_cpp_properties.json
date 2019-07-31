@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceRoot}/../../contribs/SpecialContribs/include",
+                "${workspaceRoot}/thrift/gen-cpp",
+                "${workspaceRoot}/../../contribs/SpecialContribs/src/hashkit",
+                "${workspaceRoot}/../../contribs/SpecialContribs/src/libstatgrab",
+                "${workspaceRoot}/../../contribs/SpecialContribs/include/kyotocabinet",
+                "${workspaceRoot}/../../contribs/SpecialContribs/include/leveldb",
+                "${workspaceRoot}/../../contribs/SpecialContribs/src/",
+                "${workspaceRoot}/../../corelibs/BaseFoundation/include",
+                "${workspaceRoot}/../../contribs/LibEvent/include",
+                "${workspaceRoot}/../../contribs/Poco/include",
+                "${workspaceRoot}/../../contribs/ApacheThrift/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
