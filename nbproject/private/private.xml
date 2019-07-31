@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <activeConfTypeElem>3</activeConfTypeElem>
+        <activeConfIndexElem>1</activeConfIndexElem>
+    </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="hcore2017">
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/tests/EtcdRegTest.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/LiteEndpointManager.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/EtcdRegister.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/monitor/TMonitorThriftHandler.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/monitor/TStorageMonitorThriftHandler.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/nbproject/configurations.xml</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/inc/LiteEndpointManager.h</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/EndpointManager.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/tests/ZKRegisterTest.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/tests/TestEtcdV3Client.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/inc/monitor/TMonitorThriftHandler.h</file>
+        </group>
+    </open-files>
+</project-private>

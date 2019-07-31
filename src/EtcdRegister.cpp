@@ -76,8 +76,10 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
         std::cout<<"Add service key : "<< key << " value : "<<value<<std::endl;
            
         etcd::Response res = _etcdClient->set(key,value).get();
-        if(res.error_code() == 0) return true;
-        else return false;
+        if(res.error_code() == 0) 
+            return true;
+        else 
+            return false;
         return true;
     }
     catch(...)

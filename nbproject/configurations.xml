@@ -180,11 +180,23 @@
                      projectFiles="true"
                      kind="TEST">
       </logicalFolder>
+      <logicalFolder name="f4"
+                     displayName="EtcdRegTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EtcdRegTest.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="ManualTest"
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/TestZK.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5"
+                     displayName="TestEtcdV3Client"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/TestEtcdV3Client.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f3"
                      displayName="ZKRegisterTest"
@@ -232,15 +244,17 @@
             <pElem>../../contribs/Boost/include</pElem>
             <pElem>../../contribs/Poco/include</pElem>
             <pElem>../../contribs/ApacheThrift/include</pElem>
+            <pElem>../../contribs/SpecialContribs</pElem>
             <pElem>../../contribs/SpecialContribs/include</pElem>
             <pElem>thrift/gen-cpp</pElem>
             <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
             <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
             <pElem>../../contribs/SpecialContribs/src/</pElem>
           </incDir>
-          <commandLine>-std=c++0x</commandLine>
           <preprocessorList>
             <Elem>BUILD_LIBSTATGRAB</Elem>
+            <Elem>CPPREST_FORCE_HTTP_CLIENT_ASIO</Elem>
+            <Elem>CPPREST_NO_SSL_LEAK_SUPPRESS</Elem>
             <Elem>HAVE_CONFIG_H</Elem>
             <Elem>THREADED</Elem>
             <Elem>_GNU_SOURCE</Elem>
@@ -263,18 +277,42 @@
           <linkerAddLib>
             <pElem>lib</pElem>
             <pElem>../../contribs/Test/Catch</pElem>
-            <pElem>../../contribs/UPPoco/lib</pElem>
-            <pElem>../../contribs/UPThrift/lib</pElem>
-            <pElem>../../contribs/UPEvent/lib</pElem>
+            <pElem>../../contribs/Poco/lib</pElem>
+            <pElem>../../contribs/ApacheThrift/lib</pElem>
+            <pElem>../../contribs/LibEvent/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
-            <linkerLibLibItem>upbased</linkerLibLibItem>
-            <linkerLibLibItem>uppoco</linkerLibLibItem>
-            <linkerLibLibItem>upthrift</linkerLibLibItem>
-            <linkerLibLibItem>upevent</linkerLibLibItem>
-            <linkerLibLibItem>pthread</linkerLibLibItem>
-            <linkerLibLibItem>dl</linkerLibLibItem>
-            <linkerLibLibItem>rt</linkerLibLibItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libetcd-cpp-api.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libspecialcontribsd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/Poco/lib/libpocoalld.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/ApacheThrift/lib/libapachethriftd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/LibEvent/lib/libeventd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libspecialcontribsd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libares.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_atomic.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_chrono.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_date_time.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_locale.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_regex.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_system.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_thread.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libcpprest.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgpr.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_cronet.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_error_details.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_reflection.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libprotobuf.a</linkerLibFileItem>
+            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs openssl`</linkerOptionItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
+            <linkerOptionItem>-lrt</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </folder>
@@ -318,6 +356,92 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/EtcdRegTest</output>
+          <linkerLibItems>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libspecialcontribsd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libetcd-cpp-api.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libares.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_atomic.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_chrono.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_date_time.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_locale.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_regex.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_system.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_thread.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libcpprest.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgpr.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_cronet.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_error_details.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_reflection.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libprotobuf.a</linkerLibFileItem>
+            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs openssl`</linkerOptionItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
+          <linkerLibItems>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libetcd-cpp-api.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libspecialcontribsd.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libares.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_atomic.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_chrono.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_date_time.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_locale.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_regex.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_system.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libboost_thread.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libcpprest.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgpr.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_cronet.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_error_details.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_reflection.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpc_unsecure.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a</linkerLibFileItem>
+            <linkerLibFileItem>../../contribs/SpecialContribs/lib/libprotobuf.a</linkerLibFileItem>
+            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs openssl`</linkerOptionItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
       <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
@@ -567,6 +691,10 @@
             flavor2="0">
       </item>
       <item path="src/monitor/TStorageStatModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/EtcdRegTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TestEtcdV3Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -722,13 +850,12 @@
             <pElem>../../contribs/Boost/include</pElem>
             <pElem>../../contribs/Poco/include</pElem>
             <pElem>../../contribs/ApacheThrift/include</pElem>
+            <pElem>../../contribs/SpecialContribs</pElem>
             <pElem>../../contribs/SpecialContribs/include</pElem>
             <pElem>thrift/gen-cpp</pElem>
             <pElem>../../contribs/SpecialContribs/src/hashkit</pElem>
             <pElem>../../contribs/SpecialContribs/src/libstatgrab</pElem>
             <pElem>../../contribs/SpecialContribs/src/</pElem>
-            <pElem>../../contribs/EtcdClientApi</pElem>
-            <pElem>/usr/local/include/cpprest</pElem>
           </incDir>
           <preprocessorList>
             <Elem>BUILD_LIBSTATGRAB</Elem>
@@ -828,6 +955,36 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
         </linkerTool>
       </folder>
       <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
@@ -1077,6 +1234,10 @@
             flavor2="0">
       </item>
       <item path="src/monitor/TStorageStatModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/EtcdRegTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/TestEtcdV3Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
       </item>
