@@ -33,7 +33,7 @@ namespace etcd {
 }
 
 
-typedef etcd::Client *  EtcdAdapterPtr;
+typedef std::shared_ptr<etcd::Client>  EtcdAdapterPtr;
 
 class EtcdRegisterObserver{
 public:
@@ -104,6 +104,7 @@ private:
     int _failedCount;
     Poco::Event _stopMonitorEvent;
     Poco::Event _wakeupMonitorEvent;
+    bool isServerOnline;
 
 };
 

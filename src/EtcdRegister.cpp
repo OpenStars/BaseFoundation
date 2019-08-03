@@ -23,8 +23,12 @@
 #include <iostream>
 #include <set>
 #include <pplx/pplxtasks.h>
+#include <thread>
+#include <unistd.h>
+#include <memory>
+#include <chrono>
 using namespace std;
-
+void SetToEtcd(std::string key,std::string value,std::string url);
 EtcdRegister::EtcdRegister(const std::string& aEtcdHosts,const std::string& aEtcdTotalHostsKey) 
 : _started(false)
 ,_etcdHosts(aEtcdHosts)
@@ -37,7 +41,6 @@ EtcdRegister::EtcdRegister(const std::string& aEtcdHosts,const std::string& aEtc
 
 EtcdRegister::~EtcdRegister() {
     stop();
-    delete _etcdClient;
 }
 
 void EtcdRegister::addService(const std::string& path, const std::string& host, const int port,const std::string& schema)
@@ -52,14 +55,13 @@ void EtcdRegister::addService(const std::string& path, const std::string& host, 
     else
     {
         addUsingCurrentSession(ServiceEtcdInfo(path,host,port,schema));
+//        std::thread task(addUsingCurrentSession,ServiceEtcdInfo(path,host,port,schema),this->_etcdClient);
+        
     }
 }
 
 bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
 {
-    try
-    {
-       
         Poco::URI uri;
         uri.setScheme(aService.schema);
         uri.setHost(aService.host);
@@ -73,19 +75,42 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
         
         const std::string key = regPath.toString();
         const std::string value = uri.toString();
-        std::cout<<"Add service key : "<< key << " value : "<<value<<std::endl;
-           
-        etcd::Response res = _etcdClient->set(key,value).get();
-        if(res.error_code() == 0) return true;
-        else return false;
+        std::thread task(SetToEtcd,key,value,_etcdHosts);
+        task.join();
         return true;
-    }
-    catch(...)
-    {
-        std::cout <<"khong ket noi duoc server"<<std::endl;
-        return false;
-    }
+//        while(true){
+//            etcd::Response res = _etcdClient->set(key,value).get();
+//            if (res.error_code()== 0)
+//            {
+//                std::cout<<"Add service key : "<< key << " value : "<<value<<" success!"<<std::endl;
+//                return true;
+//            }
+//            else
+//            {
+//                std::cout<<"Add service key : "<< key << " value : "<<value<<" failed!"<<std::endl;
+////                return false;
+//            }
+//            usleep(5000);
+//        }
+       
+}
+
+void SetToEtcd(std::string key,std::string value,std::string url){
+   EtcdAdapterPtr client = std::make_shared<etcd::Client>(url);
+   long int i = 0;
+   while(true){
+       etcd::Response res = client->set(key,value).get();
+       if ( res.error_code() == 0) 
+       {
+           std::cout<<"Set key: "<<key<<" value: "<<value<<" success!"<<std::endl;
+           return;
+       }
+       std::cout<<i<<" Set key: "<<key<<" value: "<<value<<" failed!"<<std::endl;
+       i++;
+       std::this_thread::sleep_for(std::chrono::seconds(5));
+   }
    
+    
 }
 
 void EtcdRegister::registerAll()
@@ -124,7 +149,7 @@ void EtcdRegister::initConnection()
     if(_etcdTotalHosts.length()==0) _etcdTotalHosts = _etcdHosts;
     if(_etcdTotalHosts.length()==0) return;
    
-    _etcdClient = new etcd::Client(_etcdHosts);
+    _etcdClient =  std::make_shared<etcd::Client>(_etcdHosts);
 }
 
 
@@ -139,7 +164,6 @@ void EtcdRegister::unRegisterAll()
 
 bool EtcdRegister::removeUsingCurrentSession(const ServiceEtcdInfo& aService)
 {
-    try{
         Poco::URI uri;
         uri.setScheme(aService.schema);
         uri.setHost(aService.host);
@@ -151,20 +175,17 @@ bool EtcdRegister::removeUsingCurrentSession(const ServiceEtcdInfo& aService)
         const std::string key = regPath.toString();
        
         etcd::Response res = _etcdClient->rm(key).get();
+        
         if(res.error_code() == 0)
         {
-            std::cout<<"Del key: "<<key<<"success"<<std::endl;
+            std::cout<<"Del key: "<<key<<" success!"<<std::endl;
             return true;
         }
         else
         {
-            std::cout<<"Del key: "<<key<<"failed"<<std::endl;
+            std::cout<<"Del key: "<<key<<" failed!"<<std::endl;
             return false;
         }
-    }
-    catch(...){
-        return false;
-    }
 }
 
 void EtcdRegister::setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey  )

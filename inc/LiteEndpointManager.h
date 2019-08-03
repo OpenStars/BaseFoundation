@@ -34,40 +34,40 @@ public:
     virtual ~LiteEndpointManager();
     
 public:
-    
-    virtual void start();
-    
-    virtual void stop();
-    
-    virtual void addService(const std::string& basePath);
-    
-    /**
-     * get random endpoint from endpoints 
-     * @param outEndpoint: output endpoint
-     * @return true if endpoint is from zookeeper list 
-     *		
-     */
-    virtual bool getEndpoint(const std::string& basePath, Endpoint& outEndpoint) const;
-    
-    /**
-     * Get all endpoints from zookeeper / etcd
-     * @param outEndpoints : all endpoint
-     * @return 
-     */
-    virtual bool getEndpoint(const std::string& basePath, std::vector< Endpoint >& outEndpoints)const;
-    
-    
-public:
-    
-    /**
-     * 
-     * @param zkServer zookeeper server such as 127.0.0.1:2181,xyz.a.a.a:2181
-     * @param zkBasePath base path for endpoint : /abc/xyz
-     */
-    void loadEndpoints(const std::string& zkServer);
-    
-    void setDefaultEndpoint(const std::string& basePath, const Endpoint& aEndpoint);
-    
+//    
+//    virtual void start();
+//    
+//    virtual void stop();
+//    
+//    virtual void addService(const std::string& basePath);
+//    
+//    /**
+//     * get random endpoint from endpoints 
+//     * @param outEndpoint: output endpoint
+//     * @return true if endpoint is from zookeeper list 
+//     *		
+//     */
+//    virtual bool getEndpoint(const std::string& basePath, Endpoint& outEndpoint) const;
+//    
+//    /**
+//     * Get all endpoints from zookeeper / etcd
+//     * @param outEndpoints : all endpoint
+//     * @return 
+//     */
+//    virtual bool getEndpoint(const std::string& basePath, std::vector< Endpoint >& outEndpoints)const;
+//    
+//    
+//public:
+//    
+//    /**
+//     * 
+//     * @param zkServer zookeeper server such as 127.0.0.1:2181,xyz.a.a.a:2181
+//     * @param zkBasePath base path for endpoint : /abc/xyz
+//     */
+//    void loadEndpoints(const std::string& zkServer);
+//    
+//    void setDefaultEndpoint(const std::string& basePath, const Endpoint& aEndpoint);
+//    
     
 private:
     LiteEndpointManager(const LiteEndpointManager& orig);
