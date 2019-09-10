@@ -29,6 +29,7 @@
 #include <chrono>
 using namespace std;
 void SetToEtcd(std::string key,std::string value,std::string url);
+
 EtcdRegister::EtcdRegister(const std::string& aEtcdHosts,const std::string& aEtcdTotalHostsKey) 
 : _started(false)
 ,_etcdHosts(aEtcdHosts)
@@ -75,11 +76,29 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
         
         const std::string key = regPath.toString();
         const std::string value = uri.toString();
-        std::thread task(SetToEtcd,key,value,_etcdHosts);
-        task.join();
+        this->_listKeyValEtcd.push_back(KeyValueEtcd(key,value));
+//        std::thread task(SetToEtcd,key,value,_etcdHosts);
+//        task.join();
         return true;
 }
+void RegisterToEcdt(std::vector<KeyValueEtcd> listKV,std::string url){
+    EtcdAdapterPtr client = std::make_shared<etcd::Client>(url);
 
+    for(size_t t= 0 ;t < listKV.size();t++){
+        while(true){
+            etcd::Response res = client->set(listKV[t].key,listKV[t].value).get();
+            if (res.error_code() != 0){
+                std::cout<<t<<" Set key: "<<listKV[t].key<<" value: "<<listKV[t].value <<" failed!"<<std::endl;
+            }
+            else
+            {
+                std::cout<<t<<" Set key: "<<listKV[t].key<<" value: "<<listKV[t].value <<" sucesss!"<<std::endl;
+                break;
+            }
+//            std::this_thread::sleep_for(std::chrono::seconds(5));
+        }
+    }
+}
 void SetToEtcd(std::string key,std::string value,std::string url){
    EtcdAdapterPtr client = std::make_shared<etcd::Client>(url);
    long int i = 0;
@@ -94,14 +113,14 @@ void SetToEtcd(std::string key,std::string value,std::string url){
        i++;
        std::this_thread::sleep_for(std::chrono::seconds(5));
    }
-   
-    
 }
 
 void EtcdRegister::registerAll()
 {
     for(size_t i = 0 ;i< _totalServices.size();i++)
         _totalServices[i].added = this->addUsingCurrentSession(_totalServices[i]);
+    std::thread task(RegisterToEcdt,this->_listKeyValEtcd,_etcdHosts);
+    task.detach();
 }
 
 void EtcdRegister::start()

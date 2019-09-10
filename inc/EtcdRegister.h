@@ -69,7 +69,22 @@ struct ServiceEtcdInfo {
    
     bool added;
 };
-
+struct KeyValueEtcd {
+    std::string key;
+    std::string value;
+    KeyValueEtcd()
+    :key("")
+    ,value("")
+    {
+        
+    }
+    KeyValueEtcd(const std::string akey,const std::string avalue)
+    :key(akey)
+    ,value(avalue)
+    {
+        
+    }
+};
 class EtcdRegister {
 public:
     EtcdRegister(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/zookeeper/farm/totalhosts") );
@@ -99,7 +114,7 @@ private:
     // key in etcd farm that store information about whole farm
     std::string _etcdTotalHostsKey; 
     std::vector<ServiceEtcdInfo> _totalServices;
-    
+    std::vector<KeyValueEtcd> _listKeyValEtcd;
     EtcdAdapterPtr _etcdClient;
     int _failedCount;
     Poco::Event _stopMonitorEvent;

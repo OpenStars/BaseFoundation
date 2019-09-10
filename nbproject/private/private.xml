@@ -20,21 +20,8 @@
         <group name="BigSetKV_v2"/>
         <group name="hcore2017"/>
         <group>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/Distributed/BasicProxyFactory.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/LiteEndpointManager.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/BasicProxyFactory.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/CHBackendManager.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/Distributed/BackendInfo.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/Distributed/BasicBackendManagerHandler.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/Util/SpinLock.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/BackendManager.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/BackendInfo.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/Distributed/BackendManager.h</file>
             <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/EtcdRegister.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/EndpointManager.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/include/EtcdRegister.h</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/RepBackendManager.cpp</file>
-            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/Distributed/BasicBackendManagerHandler.cpp</file>
+            <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/EtcdRegister.h</file>
             <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/EndpointManager.h</file>
         </group>
     </open-files>
