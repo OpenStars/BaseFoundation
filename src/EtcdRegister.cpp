@@ -78,21 +78,6 @@ bool EtcdRegister::addUsingCurrentSession(const ServiceEtcdInfo& aService)
         std::thread task(SetToEtcd,key,value,_etcdHosts);
         task.join();
         return true;
-//        while(true){
-//            etcd::Response res = _etcdClient->set(key,value).get();
-//            if (res.error_code()== 0)
-//            {
-//                std::cout<<"Add service key : "<< key << " value : "<<value<<" success!"<<std::endl;
-//                return true;
-//            }
-//            else
-//            {
-//                std::cout<<"Add service key : "<< key << " value : "<<value<<" failed!"<<std::endl;
-////                return false;
-//            }
-//            usleep(5000);
-//        }
-       
 }
 
 void SetToEtcd(std::string key,std::string value,std::string url){
