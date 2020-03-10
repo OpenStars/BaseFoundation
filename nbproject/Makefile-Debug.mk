@@ -49,12 +49,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Hashing/DefaultHasher.o \
 	${OBJECTDIR}/src/Hashing/MurmurHasher.o \
 	${OBJECTDIR}/src/LiteEndpointManager.o \
+	${OBJECTDIR}/src/NQueueCenterWorker.o \
 	${OBJECTDIR}/src/NetUtil.o \
 	${OBJECTDIR}/src/OpenBaseHandler.o \
 	${OBJECTDIR}/src/SharedMemoryEx.o \
 	${OBJECTDIR}/src/Storage/MultiKVStorage.o \
 	${OBJECTDIR}/src/Storage/SnappyKVStorage.o \
 	${OBJECTDIR}/src/Storage/StorageFactory.o \
+	${OBJECTDIR}/src/TimeBasedLisenceManager.o \
 	${OBJECTDIR}/src/Util/IDGenerator.o \
 	${OBJECTDIR}/src/ZKRegister.o \
 	${OBJECTDIR}/src/monitor/ServiceStatFetcher.o \
@@ -88,6 +90,7 @@ TESTFILES= \
 	${TESTDIR}/TestFiles/EtcdRegTest \
 	${TESTDIR}/TestFiles/f1 \
 	${TESTDIR}/TestFiles/f5 \
+	${TESTDIR}/TestFiles/f6 \
 	${TESTDIR}/TestFiles/f3
 
 # Test Object Files
@@ -95,7 +98,8 @@ TESTOBJECTFILES= \
 	${TESTDIR}/tests/EtcdRegTest.o \
 	${TESTDIR}/tests/TestEtcdV3Client.o \
 	${TESTDIR}/tests/TestZK.o \
-	${TESTDIR}/tests/ZKRegisterTest.o
+	${TESTDIR}/tests/ZKRegisterTest.o \
+	${TESTDIR}/tests/timebasedlisencemanagertest.o
 
 # C Compiler Flags
 CFLAGS=
@@ -193,6 +197,11 @@ ${OBJECTDIR}/src/LiteEndpointManager.o: src/LiteEndpointManager.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager.o src/LiteEndpointManager.cpp
 
+${OBJECTDIR}/src/NQueueCenterWorker.o: src/NQueueCenterWorker.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NQueueCenterWorker.o src/NQueueCenterWorker.cpp
+
 ${OBJECTDIR}/src/NetUtil.o: src/NetUtil.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -222,6 +231,11 @@ ${OBJECTDIR}/src/Storage/StorageFactory.o: src/Storage/StorageFactory.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Storage
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory.o src/Storage/StorageFactory.cpp
+
+${OBJECTDIR}/src/TimeBasedLisenceManager.o: src/TimeBasedLisenceManager.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeBasedLisenceManager.o src/TimeBasedLisenceManager.cpp
 
 ${OBJECTDIR}/src/Util/IDGenerator.o: src/Util/IDGenerator.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Util
@@ -361,6 +375,10 @@ ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/TestEtcdV3Client.o ${OBJECTFILES:%.o=%
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib ../../contribs/SpecialContribs/lib/libetcd-cpp-api.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/Poco/lib/libpocoalld.a ../../contribs/ApacheThrift/lib/libapachethriftd.a ../../contribs/LibEvent/lib/libeventd.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/SpecialContribs/lib/libares.a ../../contribs/SpecialContribs/lib/libboost_atomic.a ../../contribs/SpecialContribs/lib/libboost_chrono.a ../../contribs/SpecialContribs/lib/libboost_date_time.a ../../contribs/SpecialContribs/lib/libboost_locale.a ../../contribs/SpecialContribs/lib/libboost_regex.a ../../contribs/SpecialContribs/lib/libboost_system.a ../../contribs/SpecialContribs/lib/libboost_thread.a ../../contribs/SpecialContribs/lib/libcpprest.a ../../contribs/SpecialContribs/lib/libgpr.a ../../contribs/SpecialContribs/lib/libgrpc++.a ../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a ../../contribs/SpecialContribs/lib/libgrpc++_cronet.a ../../contribs/SpecialContribs/lib/libgrpc++_error_details.a ../../contribs/SpecialContribs/lib/libgrpc++_reflection.a ../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a ../../contribs/SpecialContribs/lib/libgrpc.a ../../contribs/SpecialContribs/lib/libgrpc_unsecure.a ../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a ../../contribs/SpecialContribs/lib/libprotobuf.a `pkg-config --libs zlib` `pkg-config --libs openssl` -lpthread  -ldl  -lrt   ../../contribs/SpecialContribs/lib/libetcd-cpp-api.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/SpecialContribs/lib/libares.a ../../contribs/SpecialContribs/lib/libboost_atomic.a ../../contribs/SpecialContribs/lib/libboost_chrono.a ../../contribs/SpecialContribs/lib/libboost_date_time.a ../../contribs/SpecialContribs/lib/libboost_locale.a ../../contribs/SpecialContribs/lib/libboost_regex.a ../../contribs/SpecialContribs/lib/libboost_system.a ../../contribs/SpecialContribs/lib/libboost_thread.a ../../contribs/SpecialContribs/lib/libcpprest.a ../../contribs/SpecialContribs/lib/libgpr.a ../../contribs/SpecialContribs/lib/libgrpc++.a ../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a ../../contribs/SpecialContribs/lib/libgrpc++_cronet.a ../../contribs/SpecialContribs/lib/libgrpc++_error_details.a ../../contribs/SpecialContribs/lib/libgrpc++_reflection.a ../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a ../../contribs/SpecialContribs/lib/libgrpc.a ../../contribs/SpecialContribs/lib/libgrpc_unsecure.a ../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a ../../contribs/SpecialContribs/lib/libprotobuf.a `pkg-config --libs zlib` `pkg-config --libs openssl` -lpthread  -ldl    
 
+${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/timebasedlisencemanagertest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib ../../contribs/SpecialContribs/lib/libetcd-cpp-api.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/Poco/lib/libpocoalld.a ../../contribs/ApacheThrift/lib/libapachethriftd.a ../../contribs/LibEvent/lib/libeventd.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/SpecialContribs/lib/libares.a ../../contribs/SpecialContribs/lib/libboost_atomic.a ../../contribs/SpecialContribs/lib/libboost_chrono.a ../../contribs/SpecialContribs/lib/libboost_date_time.a ../../contribs/SpecialContribs/lib/libboost_locale.a ../../contribs/SpecialContribs/lib/libboost_regex.a ../../contribs/SpecialContribs/lib/libboost_system.a ../../contribs/SpecialContribs/lib/libboost_thread.a ../../contribs/SpecialContribs/lib/libcpprest.a ../../contribs/SpecialContribs/lib/libgpr.a ../../contribs/SpecialContribs/lib/libgrpc++.a ../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a ../../contribs/SpecialContribs/lib/libgrpc++_cronet.a ../../contribs/SpecialContribs/lib/libgrpc++_error_details.a ../../contribs/SpecialContribs/lib/libgrpc++_reflection.a ../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a ../../contribs/SpecialContribs/lib/libgrpc.a ../../contribs/SpecialContribs/lib/libgrpc_unsecure.a ../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a ../../contribs/SpecialContribs/lib/libprotobuf.a `pkg-config --libs zlib` `pkg-config --libs openssl` -lpthread  -ldl  -lrt   
+
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/ZKRegisterTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib ../../contribs/SpecialContribs/lib/libetcd-cpp-api.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/Poco/lib/libpocoalld.a ../../contribs/ApacheThrift/lib/libapachethriftd.a ../../contribs/LibEvent/lib/libeventd.a ../../contribs/SpecialContribs/lib/libspecialcontribsd.a ../../contribs/SpecialContribs/lib/libares.a ../../contribs/SpecialContribs/lib/libboost_atomic.a ../../contribs/SpecialContribs/lib/libboost_chrono.a ../../contribs/SpecialContribs/lib/libboost_date_time.a ../../contribs/SpecialContribs/lib/libboost_locale.a ../../contribs/SpecialContribs/lib/libboost_regex.a ../../contribs/SpecialContribs/lib/libboost_system.a ../../contribs/SpecialContribs/lib/libboost_thread.a ../../contribs/SpecialContribs/lib/libcpprest.a ../../contribs/SpecialContribs/lib/libgpr.a ../../contribs/SpecialContribs/lib/libgrpc++.a ../../contribs/SpecialContribs/lib/libgrpc++_core_stats.a ../../contribs/SpecialContribs/lib/libgrpc++_cronet.a ../../contribs/SpecialContribs/lib/libgrpc++_error_details.a ../../contribs/SpecialContribs/lib/libgrpc++_reflection.a ../../contribs/SpecialContribs/lib/libgrpc++_unsecure.a ../../contribs/SpecialContribs/lib/libgrpc.a ../../contribs/SpecialContribs/lib/libgrpc_unsecure.a ../../contribs/SpecialContribs/lib/libgrpcpp_channelz.a ../../contribs/SpecialContribs/lib/libprotobuf.a `pkg-config --libs zlib` `pkg-config --libs openssl` -lpthread  -ldl  -lrt   
@@ -382,6 +400,12 @@ ${TESTDIR}/tests/TestEtcdV3Client.o: tests/TestEtcdV3Client.cpp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestEtcdV3Client.o tests/TestEtcdV3Client.cpp
+
+
+${TESTDIR}/tests/timebasedlisencemanagertest.o: tests/timebasedlisencemanagertest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/timebasedlisencemanagertest.o tests/timebasedlisencemanagertest.cpp
 
 
 ${TESTDIR}/tests/ZKRegisterTest.o: tests/ZKRegisterTest.cpp 
@@ -572,6 +596,19 @@ ${OBJECTDIR}/src/LiteEndpointManager_nomain.o: ${OBJECTDIR}/src/LiteEndpointMana
 	    ${CP} ${OBJECTDIR}/src/LiteEndpointManager.o ${OBJECTDIR}/src/LiteEndpointManager_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/NQueueCenterWorker_nomain.o: ${OBJECTDIR}/src/NQueueCenterWorker.o src/NQueueCenterWorker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/NQueueCenterWorker.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NQueueCenterWorker_nomain.o src/NQueueCenterWorker.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/NQueueCenterWorker.o ${OBJECTDIR}/src/NQueueCenterWorker_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/NetUtil_nomain.o: ${OBJECTDIR}/src/NetUtil.o src/NetUtil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/NetUtil.o`; \
@@ -648,6 +685,19 @@ ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o: ${OBJECTDIR}/src/Storage/Stora
 	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o src/Storage/StorageFactory.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Storage/StorageFactory.o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o: ${OBJECTDIR}/src/TimeBasedLisenceManager.o src/TimeBasedLisenceManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/TimeBasedLisenceManager.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -DBUILD_LIBSTATGRAB -DCPPREST_FORCE_HTTP_CLIENT_ASIO -DCPPREST_NO_SSL_LEAK_SUPPRESS -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o src/TimeBasedLisenceManager.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/TimeBasedLisenceManager.o ${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Util/IDGenerator_nomain.o: ${OBJECTDIR}/src/Util/IDGenerator.o src/Util/IDGenerator.cpp 
@@ -957,6 +1007,7 @@ ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o: ${OBJECTDIR}/thrift/gen-cpp
 	    ${TESTDIR}/TestFiles/EtcdRegTest || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f5 || true; \
+	    ${TESTDIR}/TestFiles/f6 || true; \
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	else  \
 	    ./${TEST} || true; \

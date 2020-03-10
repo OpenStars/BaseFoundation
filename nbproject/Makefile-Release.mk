@@ -49,12 +49,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Hashing/DefaultHasher.o \
 	${OBJECTDIR}/src/Hashing/MurmurHasher.o \
 	${OBJECTDIR}/src/LiteEndpointManager.o \
+	${OBJECTDIR}/src/NQueueCenterWorker.o \
 	${OBJECTDIR}/src/NetUtil.o \
 	${OBJECTDIR}/src/OpenBaseHandler.o \
 	${OBJECTDIR}/src/SharedMemoryEx.o \
 	${OBJECTDIR}/src/Storage/MultiKVStorage.o \
 	${OBJECTDIR}/src/Storage/SnappyKVStorage.o \
 	${OBJECTDIR}/src/Storage/StorageFactory.o \
+	${OBJECTDIR}/src/TimeBasedLisenceManager.o \
 	${OBJECTDIR}/src/Util/IDGenerator.o \
 	${OBJECTDIR}/src/ZKRegister.o \
 	${OBJECTDIR}/src/monitor/ServiceStatFetcher.o \
@@ -88,6 +90,7 @@ TESTFILES= \
 	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f1 \
 	${TESTDIR}/TestFiles/f5 \
+	${TESTDIR}/TestFiles/f6 \
 	${TESTDIR}/TestFiles/zkregistertest
 
 # Test Object Files
@@ -95,7 +98,8 @@ TESTOBJECTFILES= \
 	${TESTDIR}/tests/EtcdRegTest.o \
 	${TESTDIR}/tests/TestEtcdV3Client.o \
 	${TESTDIR}/tests/TestZK.o \
-	${TESTDIR}/tests/ZKRegisterTest.o
+	${TESTDIR}/tests/ZKRegisterTest.o \
+	${TESTDIR}/tests/timebasedlisencemanagertest.o
 
 # C Compiler Flags
 CFLAGS=
@@ -193,6 +197,11 @@ ${OBJECTDIR}/src/LiteEndpointManager.o: src/LiteEndpointManager.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LiteEndpointManager.o src/LiteEndpointManager.cpp
 
+${OBJECTDIR}/src/NQueueCenterWorker.o: src/NQueueCenterWorker.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NQueueCenterWorker.o src/NQueueCenterWorker.cpp
+
 ${OBJECTDIR}/src/NetUtil.o: src/NetUtil.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -222,6 +231,11 @@ ${OBJECTDIR}/src/Storage/StorageFactory.o: src/Storage/StorageFactory.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Storage
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory.o src/Storage/StorageFactory.cpp
+
+${OBJECTDIR}/src/TimeBasedLisenceManager.o: src/TimeBasedLisenceManager.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeBasedLisenceManager.o src/TimeBasedLisenceManager.cpp
 
 ${OBJECTDIR}/src/Util/IDGenerator.o: src/Util/IDGenerator.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/Util
@@ -348,47 +362,57 @@ ${OBJECTDIR}/thrift/gen-cpp/openbase_types.o: thrift/gen-cpp/openbase_types.cpp
 
 ${TESTDIR}/TestFiles/f2: ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}  -std=c++0x -Llib -L../../contribs/Test/Catch -L../../contribs/UPPoco/lib -L../../contribs/UPThrift/lib -L../../contribs/UPEvent/lib -lupbased -luppoco -lupthrift -lupevent -lpthread -ldl 
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}  -std=c++0x -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl 
 
 ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/EtcdRegTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/UPPoco/lib -L../../contribs/UPThrift/lib -L../../contribs/UPEvent/lib -lupbased -luppoco -lupthrift -lupevent -lpthread -ldl 
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl 
 
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/TestZK.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/UPPoco/lib -L../../contribs/UPThrift/lib -L../../contribs/UPEvent/lib -lupbased -luppoco -lupthrift -lupevent -lpthread -ldl 
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl 
 
 ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/TestEtcdV3Client.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/UPPoco/lib -L../../contribs/UPThrift/lib -L../../contribs/UPEvent/lib -lupbased -luppoco -lupthrift -lupevent -lpthread -ldl 
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl 
+
+${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/timebasedlisencemanagertest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl 
 
 ${TESTDIR}/TestFiles/zkregistertest: ${TESTDIR}/tests/ZKRegisterTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/zkregistertest $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/UPPoco/lib -L../../contribs/UPThrift/lib -L../../contribs/UPEvent/lib -lupbased -luppoco -lupthrift -lupevent -lpthread -ldl ../../contribs/UPPoco/lib/libuppocod.a 
+	${LINK.cc} -o ${TESTDIR}/TestFiles/zkregistertest $^ ${LDLIBSOPTIONS}   -Llib -L../../contribs/Test/Catch -L../../contribs/Poco/lib -L../../contribs/ApacheThrift/lib -L../../contribs/LibEvent/lib -lpthread -ldl ../../contribs/UPPoco/lib/libuppocod.a 
 
 
 ${TESTDIR}/tests/EtcdRegTest.o: tests/EtcdRegTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/EtcdRegTest.o tests/EtcdRegTest.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/EtcdRegTest.o tests/EtcdRegTest.cpp
 
 
 ${TESTDIR}/tests/TestZK.o: tests/TestZK.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestZK.o tests/TestZK.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestZK.o tests/TestZK.cpp
 
 
 ${TESTDIR}/tests/TestEtcdV3Client.o: tests/TestEtcdV3Client.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestEtcdV3Client.o tests/TestEtcdV3Client.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/TestEtcdV3Client.o tests/TestEtcdV3Client.cpp
+
+
+${TESTDIR}/tests/timebasedlisencemanagertest.o: tests/timebasedlisencemanagertest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/timebasedlisencemanagertest.o tests/timebasedlisencemanagertest.cpp
 
 
 ${TESTDIR}/tests/ZKRegisterTest.o: tests/ZKRegisterTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -Iinc -I../../contribs/UPPoco/inc -I../../contribs/UPThrift/inc -I../../contribs/UPEvent/inc -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ZKRegisterTest.o tests/ZKRegisterTest.cpp
+	$(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ZKRegisterTest.o tests/ZKRegisterTest.cpp
 
 
 ${OBJECTDIR}/src/Caching/MemoryStats_nomain.o: ${OBJECTDIR}/src/Caching/MemoryStats.o src/Caching/MemoryStats.cpp 
@@ -573,6 +597,19 @@ ${OBJECTDIR}/src/LiteEndpointManager_nomain.o: ${OBJECTDIR}/src/LiteEndpointMana
 	    ${CP} ${OBJECTDIR}/src/LiteEndpointManager.o ${OBJECTDIR}/src/LiteEndpointManager_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/NQueueCenterWorker_nomain.o: ${OBJECTDIR}/src/NQueueCenterWorker.o src/NQueueCenterWorker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/NQueueCenterWorker.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/NQueueCenterWorker_nomain.o src/NQueueCenterWorker.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/NQueueCenterWorker.o ${OBJECTDIR}/src/NQueueCenterWorker_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/NetUtil_nomain.o: ${OBJECTDIR}/src/NetUtil.o src/NetUtil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/NetUtil.o`; \
@@ -649,6 +686,19 @@ ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o: ${OBJECTDIR}/src/Storage/Stora
 	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o src/Storage/StorageFactory.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Storage/StorageFactory.o ${OBJECTDIR}/src/Storage/StorageFactory_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o: ${OBJECTDIR}/src/TimeBasedLisenceManager.o src/TimeBasedLisenceManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/TimeBasedLisenceManager.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -DBUILD_LIBSTATGRAB -DHAVE_CONFIG_H -DTHREADED -D_GNU_SOURCE -Iinc -I../../contribs/LibEvent/include -I../../contribs/Boost/include -I../../contribs/Poco/include -I../../contribs/ApacheThrift/include -I../../contribs/SpecialContribs -I../../contribs/SpecialContribs/include -Ithrift/gen-cpp -I../../contribs/SpecialContribs/src/hashkit -I../../contribs/SpecialContribs/src/libstatgrab -I../../contribs/SpecialContribs/src/ -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o src/TimeBasedLisenceManager.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/TimeBasedLisenceManager.o ${OBJECTDIR}/src/TimeBasedLisenceManager_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Util/IDGenerator_nomain.o: ${OBJECTDIR}/src/Util/IDGenerator.o src/Util/IDGenerator.cpp 
@@ -958,6 +1008,7 @@ ${OBJECTDIR}/thrift/gen-cpp/openbase_types_nomain.o: ${OBJECTDIR}/thrift/gen-cpp
 	    ${TESTDIR}/TestFiles/f4 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f5 || true; \
+	    ${TESTDIR}/TestFiles/f6 || true; \
 	    ${TESTDIR}/TestFiles/zkregistertest || true; \
 	else  \
 	    ./${TEST} || true; \

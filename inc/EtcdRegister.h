@@ -87,8 +87,8 @@ struct KeyValueEtcd {
 };
 class EtcdRegister {
 public:
-    EtcdRegister(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/zookeeper/farm/totalhosts") );
-    void setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/zookeeper/farm/totalhosts") );
+    EtcdRegister(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/etcd/farm/totalhosts") );
+    void setEtcdHosts(const std::string& aEtcdHosts, const std::string& aEtcdTotalHostsKey = std::string("/corp/etcd/farm/totalhosts") );
     virtual ~EtcdRegister();
 private:
     EtcdRegister(const EtcdRegister& orig);

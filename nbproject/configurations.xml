@@ -90,6 +90,7 @@
       <itemPath>inc/ServiceThriftHandlerBaseT.h</itemPath>
       <itemPath>inc/SimpleServiceFactory.h</itemPath>
       <itemPath>inc/Util/SpinLock.h</itemPath>
+      <itemPath>inc/TimeBasedLisenceManager.h</itemPath>
       <itemPath>inc/ZKRegister.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f1" displayName="rpc" projectFiles="true">
@@ -166,9 +167,11 @@
       <itemPath>src/EtcdRegister.cpp</itemPath>
       <itemPath>src/LiteEndpointManager.cpp</itemPath>
       <itemPath>src/Caching/MemoryStats.cpp</itemPath>
+      <itemPath>src/NQueueCenterWorker.cpp</itemPath>
       <itemPath>src/NetUtil.cpp</itemPath>
       <itemPath>src/OpenBaseHandler.cpp</itemPath>
       <itemPath>src/SharedMemoryEx.cpp</itemPath>
+      <itemPath>src/TimeBasedLisenceManager.cpp</itemPath>
       <itemPath>src/ZKRegister.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -197,6 +200,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/TestEtcdV3Client.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6"
+                     displayName="TimeBasedLisenceManagerTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/timebasedlisencemanagertest.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f3"
                      displayName="ZKRegisterTest"
@@ -444,6 +453,21 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
+        </linkerTool>
+      </folder>
       <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Caching/ARCLLCache.h" ex="false" tool="3" flavor2="0">
@@ -558,6 +582,8 @@
       </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/TimeBasedLisenceManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Util/SpinLock.h" ex="false" tool="3" flavor2="0">
@@ -653,6 +679,8 @@
       </item>
       <item path="src/LiteEndpointManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/NQueueCenterWorker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/NetUtil.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/OpenBaseHandler.cpp" ex="false" tool="1" flavor2="0">
@@ -664,6 +692,8 @@
       <item path="src/Storage/SnappyKVStorage.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/TimeBasedLisenceManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -699,6 +729,11 @@
       <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/ZKRegisterTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/timebasedlisencemanagertest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="thrift/backendmonitor.thrift" ex="false" tool="3" flavor2="0">
       </item>
@@ -876,27 +911,15 @@
         </archiverTool>
       </compileType>
       <folder path="TestFiles">
-        <ccTool>
-          <incDir>
-            <pElem>inc</pElem>
-            <pElem>../../contribs/UPPoco/inc</pElem>
-            <pElem>../../contribs/UPThrift/inc</pElem>
-            <pElem>../../contribs/UPEvent/inc</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>lib</pElem>
             <pElem>../../contribs/Test/Catch</pElem>
-            <pElem>../../contribs/UPPoco/lib</pElem>
-            <pElem>../../contribs/UPThrift/lib</pElem>
-            <pElem>../../contribs/UPEvent/lib</pElem>
+            <pElem>../../contribs/Poco/lib</pElem>
+            <pElem>../../contribs/ApacheThrift/lib</pElem>
+            <pElem>../../contribs/LibEvent/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
-            <linkerLibLibItem>upbased</linkerLibLibItem>
-            <linkerLibLibItem>uppoco</linkerLibLibItem>
-            <linkerLibLibItem>upthrift</linkerLibLibItem>
-            <linkerLibLibItem>upevent</linkerLibLibItem>
             <linkerLibLibItem>pthread</linkerLibLibItem>
             <linkerLibLibItem>dl</linkerLibLibItem>
           </linkerLibItems>
@@ -985,6 +1008,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f5</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
         </linkerTool>
       </folder>
       <item path="inc/Caching/ARCLKCache.h" ex="false" tool="3" flavor2="0">
@@ -1101,6 +1139,8 @@
       </item>
       <item path="inc/StorageFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="inc/TimeBasedLisenceManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="inc/Util/IDGenerator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="inc/Util/SpinLock.h" ex="false" tool="3" flavor2="0">
@@ -1196,6 +1236,8 @@
       </item>
       <item path="src/LiteEndpointManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/NQueueCenterWorker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/NetUtil.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/OpenBaseHandler.cpp" ex="false" tool="1" flavor2="0">
@@ -1207,6 +1249,8 @@
       <item path="src/Storage/SnappyKVStorage.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Storage/StorageFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/TimeBasedLisenceManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Util/IDGenerator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1242,6 +1286,11 @@
       <item path="tests/TestZK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/ZKRegisterTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/timebasedlisencemanagertest.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="thrift/backendmonitor.thrift" ex="false" tool="3" flavor2="0">
       </item>

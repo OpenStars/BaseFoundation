@@ -18,11 +18,18 @@
             <file>file:/data/data/workspace_2015/corelibs/UPBase/inc/EndpointManager2.h</file>
         </group>
         <group name="BigSetKV_v2"/>
-        <group name="hcore2017"/>
         <group>
             <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/src/EtcdRegister.cpp</file>
             <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/EtcdRegister.h</file>
             <file>file:/home/lehaisonmath6/Desktop/Database/BackendDevelopment/corelibs/BaseFoundation/inc/EndpointManager.h</file>
+        </group>
+        <group name="hcore2017">
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/nbproject/configurations.xml</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/src/TimeBasedLisenceManager.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/inc/TimeBasedLisenceManager.h</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/tests/timebasedlisencemanagertest.cpp</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/inc/Endpoint.h</file>
+            <file>file:/data/data/src/cpp/hcore2017/corelibs/BaseFoundation/README.md</file>
         </group>
     </open-files>
 </project-private>

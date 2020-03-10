@@ -3,6 +3,7 @@
 
 #include <Poco/DateTime.h>
 #include <Poco/Timezone.h>
+#include <Poco/LocalDateTime.h>
 
 #include <string.h>
 #include <stdio.h>

@@ -128,7 +128,8 @@ void TStorageMonitorThriftHandler::closeStorage(const std::string& stgName)
     }
 }
 
-void TStorageMonitorThriftHandler::openStorage(const std::string& stgCreateOption){}
+//void TStorageMonitorThriftHandler::openStorage(const std::string& stgCreateOption){}
+
 //{
 //    if (_storage)
 //    {
