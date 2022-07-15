@@ -23,7 +23,7 @@ class TClient : public _ThriftServiceClient {
 public:
 
     TClient() :
-    _ThriftServiceClient(apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol>()) {
+    _ThriftServiceClient(std::shared_ptr<apache::thrift::protocol::TProtocol>()) {
 
     }
 
@@ -32,7 +32,7 @@ public:
     }
 
     TClient(const std::string &host, int port, bool framed = false) :
-    _ThriftServiceClient(apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol>()) {
+    _ThriftServiceClient(std::shared_ptr<apache::thrift::protocol::TProtocol>()) {
         open(host, port, framed);
     }
 
@@ -61,14 +61,14 @@ public:
         _timestamp = aTime.epochTime();
         bool result = true;
         try {
-            this->_socket = apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TSocket(this->_host, this->_port));
+            this->_socket = std::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TSocket(this->_host, this->_port));
             if (this->_framed) {
-                this->_transport = apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TFramedTransport(this->_socket));
+                this->_transport = std::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TFramedTransport(this->_socket));
             } else {
-                this->_transport = apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TBufferedTransport(this->_socket));
+                this->_transport = std::shared_ptr<apache::thrift::transport::TTransport > (new apache::thrift::transport::TBufferedTransport(this->_socket));
             }
 
-            this->_protocol = apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol > (new _TThriftProtocol(this->_transport));
+            this->_protocol = std::shared_ptr<apache::thrift::protocol::TProtocol > (new _TThriftProtocol(this->_transport));
 
             //bind service client protocol
             _ThriftServiceClient::piprot_ = _protocol;
@@ -113,9 +113,9 @@ public:
     }
 
 private:
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TTransport> _socket;
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TTransport> _transport;
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol> _protocol;
+    std::shared_ptr<apache::thrift::transport::TTransport> _socket;
+    std::shared_ptr<apache::thrift::transport::TTransport> _transport;
+    std::shared_ptr<apache::thrift::protocol::TProtocol> _protocol;
     std::string _host;
     int _port;
     bool _framed;
@@ -135,9 +135,9 @@ public:
 template <class ThriftClient>
 class TMemBufClient {
 private:
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TMemoryBuffer> memBuf;
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol> protocol;
-    apache::thrift::stdcxx::shared_ptr<ThriftClient> client;
+    std::shared_ptr<apache::thrift::transport::TMemoryBuffer> memBuf;
+    std::shared_ptr<apache::thrift::protocol::TProtocol> protocol;
+    std::shared_ptr<ThriftClient> client;
 public:
 
     TMemBufClient() {
@@ -148,17 +148,17 @@ public:
         return client.get();
     }
 
-    apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TMemoryBuffer> getMemBuff()const {
+    std::shared_ptr<apache::thrift::transport::TMemoryBuffer> getMemBuff()const {
         return memBuf;
     }
 
     void lazyInit() {
         if (memBuf == 0)
-            memBuf = apache::thrift::stdcxx::shared_ptr<apache::thrift::transport::TMemoryBuffer > (new apache::thrift::transport::TMemoryBuffer());
+            memBuf = std::shared_ptr<apache::thrift::transport::TMemoryBuffer > (new apache::thrift::transport::TMemoryBuffer());
         if (protocol == 0)
-            protocol = apache::thrift::stdcxx::shared_ptr<apache::thrift::protocol::TProtocol > (new apache::thrift::protocol::TBinaryProtocol(memBuf));
+            protocol = std::shared_ptr<apache::thrift::protocol::TProtocol > (new apache::thrift::protocol::TBinaryProtocol(memBuf));
         if (client == 0)
-            client = apache::thrift::stdcxx::shared_ptr<ThriftClient > (new ThriftClient(protocol));
+            client = std::shared_ptr<ThriftClient > (new ThriftClient(protocol));
     }
 };
 

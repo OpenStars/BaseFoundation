@@ -1,7 +1,8 @@
 #ifndef TDAYSTAT_H
 #define	TDAYSTAT_H
 
-#include "boost/atomic.hpp"
+//#include "boost/atomic.hpp"
+#include "boost/atomic/atomic.hpp"
 #include <limits>
 #include <vector>
 #include "Poco/LocalDateTime.h"

@@ -14,7 +14,8 @@
 #ifndef Util_SPINLOCK_H
 #define Util_SPINLOCK_H
 
-#include "boost/atomic.hpp"
+//#include "boost/atomic.hpp"
+#include "boost/atomic/atomic.hpp"
 #include <boost/smart_ptr/detail/spinlock.hpp>
 
 namespace Util {

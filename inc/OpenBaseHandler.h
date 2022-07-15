@@ -12,16 +12,17 @@
 #include <map>
 
 #include "OpenBaseService.h"
+// Todo: Chuyen qua dung Poco::Mutex
 
 using apache::thrift::concurrency::Mutex;
-using apache::thrift::concurrency::ReadWriteMutex;
+// using apache::thrift::concurrency::ReadWriteMutex;
 using apache::thrift::server::TServer;
 
-struct ReadWriteInt : ReadWriteMutex {
+struct ReadWriteInt : Mutex {
     int64_t value;
 };
 
-struct ReadWriteCounterMap : ReadWriteMutex,
+struct ReadWriteCounterMap : Mutex,
 std::map<std::string, ReadWriteInt> {
 };
 
@@ -73,7 +74,7 @@ public:
     /**
      * Set server handle for shutdown method
      */
-    void setServer(apache::thrift::stdcxx::shared_ptr<TServer> server) {
+    void setServer(std::shared_ptr<TServer> server) {
         server_ = server;
     }
 
@@ -90,7 +91,7 @@ private:
 
     ReadWriteCounterMap counters_;
 
-    apache::thrift::stdcxx::shared_ptr<TServer> server_;
+    std::shared_ptr<TServer> server_;
 
 };
 

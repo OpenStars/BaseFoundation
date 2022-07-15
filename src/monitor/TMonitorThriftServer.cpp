@@ -9,7 +9,8 @@
 #include <thrift/transport/TNonblockingServerSocket.h>
 #include <thrift/transport/TTransportUtils.h>
 #include <thrift/protocol/TBinaryProtocol.h>
-#include <thrift/concurrency/PosixThreadFactory.h>
+// #include <thrift/concurrency/PosixThreadFactory.h>
+#include <thrift/concurrency/ThreadFactory.h>
 
 
 
@@ -22,7 +23,7 @@ using namespace apache::thrift::concurrency;
 using namespace Poco::Util;
 
 
-using apache::thrift::stdcxx::shared_ptr;
+using std::shared_ptr;
 
 
 // Runable thread
@@ -45,18 +46,19 @@ public:
             {
                 _app->logger().information("Thrift Monitor starting ...");
 
-                apache::thrift::stdcxx::shared_ptr<ServiceHandler> handler(new ServiceHandler());
-                apache::thrift::stdcxx::shared_ptr<TProcessor> processor(new ServiceProcessor(handler));
-                apache::thrift::stdcxx::shared_ptr<TNonblockingServerTransport> serverTransport(new TNonblockingServerSocket(_port));
-                apache::thrift::stdcxx::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-                apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+                std::shared_ptr<ServiceHandler> handler(new ServiceHandler());
+                std::shared_ptr<TProcessor> processor(new ServiceProcessor(handler));
+                std::shared_ptr<TNonblockingServerTransport> serverTransport(new TNonblockingServerSocket(_port));
+                std::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+                std::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
 
                 int workerCount = _app->config().getInt("thrift.nb_threadpool.size", 1);
 
                 if (workerCount > 0) {
-                    apache::thrift::stdcxx::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
-                    apache::thrift::stdcxx::shared_ptr<PosixThreadFactory> threadFactory = apache::thrift::stdcxx::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+                    std::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(workerCount);
+                    // std::shared_ptr<PosixThreadFactory> threadFactory = std::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+                    std::shared_ptr<ThreadFactory> threadFactory = std::shared_ptr<ThreadFactory>(new ThreadFactory() );
                     threadManager->threadFactory(threadFactory);
                     
                     threadManager->start();

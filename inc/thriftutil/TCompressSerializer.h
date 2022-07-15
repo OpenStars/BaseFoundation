@@ -31,10 +31,10 @@ public:
 
     typedef _TType TType;
 
-    static int32_t Serialize(apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> &memBuf, const TType&value) {
+    static int32_t Serialize(std::shared_ptr<TMemoryBuffer> &memBuf, const TType&value) {
         try {
             if (memBuf == 0)
-                memBuf = apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
+                memBuf = std::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
 
             _TProtocolType binProt(memBuf);
             //memBuf->resetBuffer();
@@ -45,7 +45,7 @@ public:
         return 0;
     }
 
-    static int32_t Deserialize(TType&value, const apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> &memBuf) {
+    static int32_t Deserialize(TType&value, const std::shared_ptr<TMemoryBuffer> &memBuf) {
         if (memBuf == 0)
             return -1;
 
@@ -59,7 +59,7 @@ public:
     }
 
     static int32_t Serialize(std::string &strBuf, const TType&value) {
-        apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > memBuf;
+        std::shared_ptr<TMemoryBuffer > memBuf;
         Serialize(memBuf, value);
         if (memBuf == 0)
             return -1;
@@ -77,10 +77,10 @@ public:
     static int32_t Deserialize(TType&value, const std::string &strBuf) {
         std::string tmp;        
         if (snappy::Uncompress(strBuf.data(), strBuf.length(), &tmp)) {
-            apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) tmp.data(), tmp.size(), TMemoryBuffer::OBSERVE));
+            std::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) tmp.data(), tmp.size(), TMemoryBuffer::OBSERVE));
             return Deserialize(value, memBuf);
         } else {
-            apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) strBuf.data(), strBuf.size(), TMemoryBuffer::OBSERVE));
+            std::shared_ptr<TMemoryBuffer> memBuf(new TMemoryBuffer((uint8_t*) strBuf.data(), strBuf.size(), TMemoryBuffer::OBSERVE));
             return Deserialize(value, memBuf);
         }
     }
@@ -110,10 +110,10 @@ public:
 
     typedef _TType TType;
 
-    static int Serialize(apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> &memBuf, const TType& value) {
+    static int Serialize(std::shared_ptr<TMemoryBuffer> &memBuf, const TType& value) {
         try {
             if (memBuf == 0)
-                memBuf = apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
+                memBuf = std::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
 
             _TProtocolType prot(memBuf);
             value.write(&prot);
@@ -123,7 +123,7 @@ public:
         return 0;
     }
 
-    static int Deserialize(TType& value, const apache::thrift::stdcxx::shared_ptr<TMemoryBuffer>& memBuf) {
+    static int Deserialize(TType& value, const std::shared_ptr<TMemoryBuffer>& memBuf) {
         if (!memBuf)
             return -1;
 
@@ -138,7 +138,7 @@ public:
 
     static int32_t SerializeT(std::string& strBuf, const TType& value) {
 
-        apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > buf = apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
+        std::shared_ptr<TMemoryBuffer > buf = std::shared_ptr<TMemoryBuffer > (new TMemoryBuffer());
 
         int32_t ret = Serialize(buf, value);
         if (ret == 0) {
@@ -160,15 +160,15 @@ public:
         if (snappy::GetUncompressedLength(strBuf.data(), strBuf.length(), &uncompressSize)) {
             if (uncompressSize < 1L << 32) {
 
-                apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > buf =
-                        apache::thrift::stdcxx::shared_ptr<TMemoryBuffer > (new TMemoryBuffer(uncompressSize));
+                std::shared_ptr<TMemoryBuffer > buf =
+                        std::shared_ptr<TMemoryBuffer > (new TMemoryBuffer(uncompressSize));
 
                 if (snappy::RawUncompress(strBuf.data(), strBuf.length(), (char*) buf->getWritePtr(uncompressSize))) {
                     return Deserialize(value, buf);
                 }
             }
         }
-		apache::thrift::stdcxx::shared_ptr<TMemoryBuffer> buf(new TMemoryBuffer((uint8_t*)strBuf.data(), (uint32_t)strBuf.length()));
+		std::shared_ptr<TMemoryBuffer> buf(new TMemoryBuffer((uint8_t*)strBuf.data(), (uint32_t)strBuf.length()));
         return Deserialize(value, buf);
     }
 

@@ -10,6 +10,7 @@
 
 #include <string>
 
+#include <boost/shared_ptr.hpp>
 #include <boost/interprocess/file_mapping.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 #include <boost/interprocess/containers/vector.hpp>

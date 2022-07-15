@@ -12,7 +12,8 @@
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/protocol/TCompactProtocol.h>
 #include <thrift/server/TSimpleServer.h>
-#include <thrift/concurrency/PosixThreadFactory.h>
+#include <thrift/concurrency/ThreadFactory.h>
+// #include <thrift/concurrency/PosixThreadFactory.h>
 #include <thrift/server/TThreadPoolServer.h>
 #include <thrift/server/TThreadedServer.h>
 #include <thrift/server/TNonblockingServer.h>
@@ -50,11 +51,11 @@ namespace openstars {
                 private:
                     int m_port;
                     int m_workerCount;
-                    apache::thrift::stdcxx::shared_ptr<ThriftProcessor> m_thriftProcessor;
-                    apache::thrift::stdcxx::shared_ptr<TServer> m_server;
+                    std::shared_ptr<ThriftProcessor> m_thriftProcessor;
+                    std::shared_ptr<TServer> m_server;
                 public:
 
-                    ServerThread(int port, int workerCount, apache::thrift::stdcxx::shared_ptr<ThriftProcessor> thriftProcessor)
+                    ServerThread(int port, int workerCount, std::shared_ptr<ThriftProcessor> thriftProcessor)
                     : m_port(port)
                     , m_workerCount(workerCount)
                     , m_thriftProcessor(thriftProcessor) {
@@ -62,7 +63,7 @@ namespace openstars {
                     }
                 public:
 
-                    apache::thrift::stdcxx::shared_ptr<TServer> getServer() {
+                    std::shared_ptr<TServer> getServer() {
                         return m_server;
                     }
 
@@ -73,7 +74,7 @@ namespace openstars {
 
 
                             //protocol factory
-                            apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new _ThriftProtocolFactory());
+                            std::shared_ptr<TProtocolFactory> protocolFactory(new _ThriftProtocolFactory());
 
 #ifdef SIMPLE_SERVER
                             TSimpleServer server(m_thriftProcessor, serverTransport, transportFactory, protocolFactory);
@@ -86,7 +87,7 @@ namespace openstars {
 #ifdef THREADPOOL_SERVER
                             //int workerCount = app.config().getInt("thrift-server.threadpool.size", 400);
                             shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(m_workerCount);
-                            shared_ptr<PosixThreadFactory> threadFactory = shared_ptr<PosixThreadFactory > (new PosixThreadFactory());
+                            shared_ptr<ThreadFactory> threadFactory = shared_ptr<ThreadFactory > (new ThreadFactory());
                             threadManager->threadFactory(threadFactory);
                             threadManager->start();
                             TThreadPoolServer server(m_thriftProcessor, serverTransport, transportFactory, protocolFactory, threadManager);
@@ -94,10 +95,10 @@ namespace openstars {
 
 #ifdef NONBLOCKING_SERVER
                             //int workerCount = app.config().getInt("thrift-server.nb_threadpool.size", 10);
-                            apache::thrift::stdcxx::shared_ptr<TNonblockingServerTransport> serverTransport(new TNonblockingServerSocket(m_port));
+                            std::shared_ptr<TNonblockingServerTransport> serverTransport(new TNonblockingServerSocket(m_port));
 
-                            apache::thrift::stdcxx::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(m_workerCount);
-                            apache::thrift::stdcxx::shared_ptr<PosixThreadFactory> threadFactory(new PosixThreadFactory());
+                            std::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(m_workerCount);
+                            std::shared_ptr<ThreadFactory> threadFactory(new ThreadFactory());
                             threadManager->threadFactory(threadFactory);
                             threadManager->start();
 
@@ -106,7 +107,7 @@ namespace openstars {
                                     , protocolFactory
                                     , serverTransport, threadManager);
                             aServer->setNumIOThreads(m_workerCount);
-                            m_server = apache::thrift::stdcxx::shared_ptr<TServer>(aServer);
+                            m_server = std::shared_ptr<TServer>(aServer);
 
 #endif
                             // start server
@@ -128,12 +129,12 @@ namespace openstars {
                 Poco::SharedPtr<ServerThread> m_svrThreadCore;
                 Poco::SharedPtr<Poco::NotificationQueue> m_notifQueue;
 
-                apache::thrift::stdcxx::shared_ptr<ThriftIface > m_serverHandler;
-                apache::thrift::stdcxx::shared_ptr<ThriftProcessor> m_thriftProcessor;
+                std::shared_ptr<ThriftIface > m_serverHandler;
+                std::shared_ptr<ThriftProcessor> m_thriftProcessor;
 
                 void lazyInit() {
                     if (m_thriftProcessor == 0)
-                        m_thriftProcessor = apache::thrift::stdcxx::shared_ptr<ThriftProcessor > (new ThriftProcessor(m_serverHandler));
+                        m_thriftProcessor = std::shared_ptr<ThriftProcessor > (new ThriftProcessor(m_serverHandler));
 
                     if (!m_svrThreadCore)
                         m_svrThreadCore = new ServerThread(m_port, m_workerCount, m_thriftProcessor);
@@ -155,23 +156,23 @@ namespace openstars {
                 }
 
                 TThriftServer(int port, int workerCount
-                        , apache::thrift::stdcxx::shared_ptr<ThriftIface > thriftServerHandler
-                        , apache::thrift::stdcxx::shared_ptr<ThriftProcessor> thriftProcessor = apache::thrift::stdcxx::shared_ptr<ThriftProcessor>())
+                        , std::shared_ptr<ThriftIface > thriftServerHandler
+                        , std::shared_ptr<ThriftProcessor> thriftProcessor = std::shared_ptr<ThriftProcessor>())
                 : m_port(port), m_workerCount(workerCount)
                 , m_serverHandler(thriftServerHandler)
                 , m_thriftProcessor(thriftProcessor) {
                     assert(m_serverHandler != 0);
                 }
 
-                apache::thrift::stdcxx::shared_ptr<ThriftIface > serverHandler() const {
+                std::shared_ptr<ThriftIface > serverHandler() const {
                     return m_serverHandler;
                 }
 
-                apache::thrift::stdcxx::shared_ptr<ThriftProcessor> thriftProcessor() const {
+                std::shared_ptr<ThriftProcessor> thriftProcessor() const {
                     return m_thriftProcessor;
                 }
 
-                apache::thrift::stdcxx::shared_ptr<TServer> thriftServer() {
+                std::shared_ptr<TServer> thriftServer() {
                     return this->m_svrThreadCore->getServer();
                 }
 
